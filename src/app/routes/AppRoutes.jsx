@@ -7,18 +7,25 @@ import KeywordDetails from '../../pages/KeywordDetails.jsx';
 import FileDetails from '../../pages/FileDetails.jsx';
 
 const AppRoutes = () => (
-    <Routes>
-        <Route path="/" element={<Sidebar />}>
-            <Route path="trending_job_keywords" element={<TrendingJobKeywords />}>
-                <Route index element={<Navigate to="all_keywords" />} />
-                <Route path="all_keywords" element={<AllKeywordsOccurrences />} />
-                <Route path="all_keywords/keyword" element={<KeywordDetails />} />
-                <Route path="all_keywords/keyword/file" element={<FileDetails />} />
-            </Route>
-            <Route path="*" element={<Navigate to="/" />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+  <Routes>
+    {/* Default route */}
+    <Route path="/" element={<Navigate to="/trending_job_keywords" />} />
+
+    {/* Main application layout with Sidebar */}
+    <Route path="/" element={<Sidebar />}>
+      
+      {/* Trending Job Keywords routes */}
+      <Route path="trending_job_keywords" element={<TrendingJobKeywords />}>
+        <Route index element={<Navigate to="all_keywords" />} />
+        <Route path="all_keywords" element={<AllKeywordsOccurrences />} />
+        <Route path="all_keywords/keyword" element={<KeywordDetails />} />
+        <Route path="all_keywords/keyword/file" element={<FileDetails />} />
+      </Route>
+      
+      {/* Fallback route for unmatched paths */}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Route>
+  </Routes>
 );
 
 export default AppRoutes;

@@ -6,10 +6,8 @@ import '../styles/TrendingJobKeywords.css';
 const TrendingJobKeywords = () => {
   return (
     <>
-      <Box className="crawler__component">
-        <Box className="crawler__tabcontent">
-          <Outlet />
-        </Box>
+      <Box className="chatbot__component">
+        <Outlet />
       </Box>
     </>
   );
