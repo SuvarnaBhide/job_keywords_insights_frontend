@@ -1,6 +1,6 @@
 import { ReactComponent as ReactLogo } from '../../assets/react.svg';
 
-export const keywordsColumnData = [
+export const allKeywordsColumnData = [
     {
         name: "Keyword",
         options: {
@@ -21,8 +21,33 @@ export const keywordsColumnData = [
         options: {
             customBodyRender: (value) => {
                 return (
+                    <div
+                        onClick={() => console.log('Button Clicked')}
+                    >
+                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                            <strong>{value}</strong> Occurrences
+                        </p>
+                    </div>
+                )
+            }
+        }
+    },
+];
+
+export const keywordColumnData = [
+    {
+        name: "Company"
+    },
+    {
+        name: "Job Title"
+    },
+    {
+        name: "Filename",
+        options: {
+            customBodyRender: (value) => {
+                return (
                     <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
-                        <strong>{value}</strong> Occurrences
+                        {value}
                     </p>
                 )
             }
