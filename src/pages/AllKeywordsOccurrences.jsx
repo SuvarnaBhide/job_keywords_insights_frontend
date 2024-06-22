@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AllKeywordsOccurrences = () => {
 
+    const [data, setData] = useState(allKeywordsRowData);
     const navigate = useNavigate();
 
     const columnsWithClickHandling = allKeywordsColumnData.map((column) => ({
@@ -38,6 +39,16 @@ const AllKeywordsOccurrences = () => {
         navigate('/trending_job_keywords/all_keywords/keyword');
     };
 
+    useEffect(() => {
+        fetch("/api/keyword_counts")
+            .then((response) => response.json())
+            .then((data) => {
+                //setData(data);
+                const rowData = Object.entries(data).map(([key, value]) => [key, value.toString()]);
+                setData(rowData);
+            })
+    }, []);
+
     return (
             <div className='py-10 min-h-screen grid place-items-center'>
                 <div className="w-10/12 max-w-4xl mb-4">
@@ -54,7 +65,7 @@ const AllKeywordsOccurrences = () => {
                 <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
-                            data={allKeywordsRowData}
+                            data={data}
                             columns={columnsWithClickHandling}
                             options={dataTableOptions}
                         />
