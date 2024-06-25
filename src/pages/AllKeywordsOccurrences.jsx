@@ -41,11 +41,21 @@ const AllKeywordsOccurrences = () => {
 
     useEffect(() => {
         fetch("/api/keyword_counts")
-            .then((response) => response.json())
-            .then((data) => {
-                const rowData = data.map(item => [item.Keyword, item.Count])
-                setData(rowData);
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
             })
+            .then((data) => {
+                if (data) {
+                    const rowData = data.map(item => [item.Keyword, item.Count]);
+                    setData(rowData);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     }, []);
 
     return (

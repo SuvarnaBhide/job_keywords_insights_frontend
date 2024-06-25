@@ -42,13 +42,24 @@ const KeywordDetails = () => {
     };
 
     useEffect(() => {
-        fetch("/api/keyword/" + keyword)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
-                setData(rowData);
-            })
+        if (keyword) {
+            fetch(`/api/keyword/${keyword}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
+                        setData(rowData);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
     }, [keyword]);
 
     return (
