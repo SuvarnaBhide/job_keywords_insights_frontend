@@ -30,4 +30,5 @@ yarn-error.log*
 firebase.json
 firebase-debug.log
 .firebase/*
+functions/
 
