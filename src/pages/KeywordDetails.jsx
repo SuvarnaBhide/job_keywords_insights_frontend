@@ -15,6 +15,8 @@ const KeywordDetails = () => {
     const { keyword } = useParams();
     const navigate = useNavigate();
 
+    const [data, setData] = useState(keywordRowData);
+
     const columnsWithClickHandling = keywordColumnData.map((column) => ({
         ...column,
         options: {
@@ -39,6 +41,16 @@ const KeywordDetails = () => {
         navigate('/trending_job_keywords/all_keywords/keyword/file', { state: '../assets/JD 1.txt' });
     };
 
+    useEffect(() => {
+        fetch("/api/keyword/" + keyword)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
+                setData(rowData);
+            })
+    }, [keyword]);
+
     return (
             <div className='py-10 min-h-screen grid place-items-center'>
                 <div className="w-10/12 max-w-4xl mb-4">
@@ -55,7 +67,7 @@ const KeywordDetails = () => {
                 <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
-                            data={keywordRowData}
+                            data={data}
                             columns={columnsWithClickHandling}
                             options={dataTableOptions}
                         />

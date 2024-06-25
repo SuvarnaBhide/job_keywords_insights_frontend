@@ -24,7 +24,7 @@ const AllKeywordsOccurrences = () => {
                     return (
                         <div
                             style={{ cursor: 'pointer' }}
-                            onClick={() => handleCellClick()}
+                            onClick={() => handleCellClick(tableMeta.rowData[0])}
                         >
                             {column.options.customBodyRender ? column.options.customBodyRender(value, tableMeta, updateValue) : value}
                         </div>
@@ -35,16 +35,15 @@ const AllKeywordsOccurrences = () => {
         }
     }));
 
-    const handleCellClick = () => {
-        navigate('/trending_job_keywords/all_keywords/keyword');
+    const handleCellClick = (keyword) => {
+        navigate(`/trending_job_keywords/all_keywords/${keyword}`);
     };
 
     useEffect(() => {
         fetch("/api/keyword_counts")
             .then((response) => response.json())
             .then((data) => {
-                //setData(data);
-                const rowData = Object.entries(data).map(([key, value]) => [key, value.toString()]);
+                const rowData = data.map(item => [item.Keyword, item.Count])
                 setData(rowData);
             })
     }, []);
