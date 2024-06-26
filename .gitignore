@@ -25,10 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 
 #firebase and github
-.github/workflows/*
-.firebaserc
-firebase.json
 firebase-debug.log
 .firebase/*
-functions/
 
