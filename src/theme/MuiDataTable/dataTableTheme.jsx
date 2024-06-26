@@ -26,6 +26,7 @@ const getMuiDataTableTheme = () => createTheme({
                 root: {
                     borderBottom: 'none',
                     padding: '16px 16px',
+                    verticalAlign: 'top',
                 },
             },
         },

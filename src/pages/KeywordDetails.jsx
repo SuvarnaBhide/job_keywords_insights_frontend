@@ -9,6 +9,7 @@ import { keywordRowData } from '../components/MuiDataTable/dataTableRowData';
 import { keywordColumnData } from '../components/MuiDataTable/dataTableColumnData';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getData } from '../app/axios/axios';
+import { CircularProgress } from '@mui/material';
 
 
 const KeywordDetails = () => {
@@ -17,6 +18,7 @@ const KeywordDetails = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState(keywordRowData);
+    const [loading, setLoading] = useState(true);
 
     const columnsWithClickHandling = keywordColumnData.map((column) => ({
         ...column,
@@ -51,9 +53,11 @@ const KeywordDetails = () => {
                         item => [item.Company, item["Job Title"], item.Filename]
                     );
                     setData(rowData);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -65,15 +69,15 @@ const KeywordDetails = () => {
                 <div className="w-10/12 max-w-4xl mb-4">
                 <div className="flex items-center justify-between m-4">
                     <div>
-                        <p className="text-[18px] font-medium mb-2">Keywords for <strong>Full Stack Developer</strong></p>
-                        <p className="text-sm text-gray-600"><strong>50 </strong>Keywords Found</p>
+                        <p className="text-[18px] font-medium mb-2">Full Stack Developer Job Profiles for <strong>{keyword}</strong></p>
+                        <p className="text-sm text-gray-600"><strong>50 </strong>Results Found</p>
                     </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-[12px]">
-                        Clicked on keyword: {keyword}
+                    <button disabled={true} className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-[12px] ${true ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1890D4]'}`}>
+                        Change Keyword
                     </button>
                 </div>
             </div>
-                <div className='w-10/12 max-w-4xl'>
+                {loading ? <CircularProgress /> : <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
                             data={data}
@@ -81,7 +85,7 @@ const KeywordDetails = () => {
                             options={dataTableOptions}
                         />
                     </ThemeProvider>
-                </div>
+                </div>}
             </div>
     );
 }

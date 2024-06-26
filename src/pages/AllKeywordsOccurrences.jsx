@@ -9,11 +9,13 @@ import { allKeywordsRowData } from '../components/MuiDataTable/dataTableRowData'
 import { allKeywordsColumnData } from '../components/MuiDataTable/dataTableColumnData';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../app/axios/axios';
+import { CircularProgress } from '@mui/material';
 
 
 const AllKeywordsOccurrences = () => {
 
     const [data, setData] = useState(allKeywordsRowData);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const columnsWithClickHandling = allKeywordsColumnData.map((column) => ({
@@ -47,9 +49,11 @@ const AllKeywordsOccurrences = () => {
                 if (data) {
                     const rowData = data.map(item => [item.Keyword, item.Count]);
                     setData(rowData);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -64,12 +68,12 @@ const AllKeywordsOccurrences = () => {
                         <p className="text-[18px] font-medium mb-2">Keywords for <strong>Full Stack Developer</strong></p>
                         <p className="text-sm text-gray-600"><strong>50 </strong>Keywords Found</p>
                     </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-[12px]">
+                    <button disabled={true} className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-[12px] ${true ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1890D4]'}`}>
                         Change Job Profile
                     </button>
                 </div>
             </div>
-                <div className='w-10/12 max-w-4xl'>
+                {loading? <CircularProgress /> : <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
                             data={data}
@@ -77,7 +81,7 @@ const AllKeywordsOccurrences = () => {
                             options={dataTableOptions}
                         />
                     </ThemeProvider>
-                </div>
+                </div>}
             </div>
     );
 }

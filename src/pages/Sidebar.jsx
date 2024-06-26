@@ -1,119 +1,69 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import '../styles/index.css';
 import '../styles/Sidebar.css';
+import mainLogo from '../assets/logo.png';
 import settingsLogo from '../assets/settings.svg';
 import helpLogo from '../assets/help_icon.png';
 import feedbackLogo from '../assets/feedback_icon.png';
+import controlLogo from '../assets/control.png';
+import { Tooltip } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Tooltip } from '@mui/material';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-
-const SidebarMenuItem = (props) => {
-  const { link, menuItemName, logo, isOpen } = props;
-  const location = useLocation();
-
-  return (
-    <Link to={link} style={{ textDecoration: 'none' }}>
-      <div
-        className={`sidebar__menuitem ${
-          location.pathname.includes(link) ? 'selected__menuitem' : ''
-        } ${!isOpen ? 'sidebar__menuitem__closed' : ''}`}
-      >
-        <Tooltip title={menuItemName} placement="right">
-          <img src={logo} alt={`${menuItemName} logo`} />
-        </Tooltip>
-        {isOpen && <p>{menuItemName}</p>}
-      </div>
-    </Link>
-  );
-};
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const menuItems = [
-    { link: '/trending_job_keywords', menuItemName: 'Trending Keywords', logo: settingsLogo },
+  const Menus = [
+    { title: "Trending Job Keywords", src: settingsLogo, link: "/trending_job_keywords/all_keywords" }
   ];
 
   return (
     <React.Fragment>
-      <div className={`sidebar ${open ? '' : 'sidebar__close'}`}>
-        <div className="sidebar__container">
-          <div>
-            {/* <div className={`sidebar__logo ${open ? '' : 'sidebar__logo__closed'}`}>
-              {open ? <img src={projectLogo} /> : <img src={projectLogoSmall} />}
-            </div> */}
-
-            <div className="sidebar__menu">
-              {menuItems.map((menuItem) => (
-                <SidebarMenuItem
-                  key={menuItem.menuItemName}
-                  link={menuItem.link}
-                  menuItemName={menuItem.menuItemName}
-                  logo={menuItem.logo}
-                  isOpen={open}
-                />
-              ))}
-            </div>
-          </div>
-          {open ? (
-            <div className="sidebar_actionButtons__container">
-              <div
-                className="actionButtons"
-                onClick={() => window.open('https://mopinion.com/31-website-feedback-tools-an-overview-and-comparison/', '_blank')}
-              >
-                <img
-                  src={feedbackLogo}
-                  alt='feedback icon'
-                  style={{ width: '23px', height: '23px', marginRight: '9px' }}
-                />
-                <p>Feedback</p>
-              </div>
-              <div
-                className="actionButtons"
-                onClick={() => window.open('https://www.helpguide.org/', '_blank')}
-              >
-                <img
-                  src={helpLogo}
-                  alt='feedback icon'
-                  style={{ width: '20px', height: '20px', marginRight: '12px' }}
-                />
-                <p>Help</p>
-              </div>
-            </div>
-          ) : (
-            <div className="sidebar_actionButtons__container__closed">
-              <div className="actionButtons__closed" onClick={() => navigate('/onboard')}>
-                <Tooltip title={'Feedback'} placement="right">
-                  <img
-                    src={feedbackLogo}
-                    style={{ width: '23px', height: '23px' }}
-                    alt="feedback icon"
-                  />
-                </Tooltip>
-              </div>
-              <div className="actionButtons__closed" onClick={() => navigate('/onboard')}>
-                <Tooltip title={'Help'} placement="right">
-                  <img src={helpLogo} style={{ width: '20px', height: '20px' }} alt="help icon" />
-                </Tooltip>
-              </div>
-            </div>
-          )}
+      <div
+        className={`${open ? "w-72" : "w-20 "} bg-[#1A4751] h-screen relative top-0 left-0 p-5  pt-8 duration-300`}
+      >
+        <img
+          alt="control"
+          src={controlLogo}
+          className={`absolute cursor-pointer right-2 top-9 w-7 border-dark-purple opacity-50
+           border-2 rounded-full  ${!open && "rotate-180"}`}
+          onClick={() => setOpen(!open)}
+        />
+        <div className="flex gap-x-4 items-center">
+          <img
+            alt="logo"
+            src={mainLogo}
+            className={`cursor-pointer duration-500 opacity-70 ${
+              open && "rotate-[360deg]"
+            }`}
+          />
+          <h1
+            className={`text-white origin-left font-medium text-xl duration-200 ${
+              !open && "scale-0"
+            }`}
+          >
+            Job Insights
+          </h1>
         </div>
-
-        <div className={`sidebar__action__icon ${open ? '' : 'sidebar__action__icon__close'}`}>
-          {open ? (
-            <ChevronLeft
-              sx={{ color: '#13293d', cursor: 'pointer' }}
-              onClick={() => setOpen(false)}
-            />
-          ) : (
-            <ChevronRight
-              sx={{ color: '#13293d', cursor: 'pointer' }}
-              onClick={() => setOpen(true)}
-            />
-          )}
-        </div>
+        <ul className="pt-6">
+          {Menus.map((Menu, index) => (
+            <Link to={Menu.link} className='no-underline'>
+              <Tooltip key={index} title={Menu.title} placement="right">
+                <li
+                  className={`flex rounded-md p-2 cursor-pointer hover:bg-[#51808B] text-gray-300 text-sm items-center gap-x-4 
+                    ${Menu.gap ? "mt-9" : "mt-2"}  ${location.pathname === Menu.link && "bg-[#51808B]"} `}
+                >
+                  <img src={Menu.src} height="25px"width="25px" alt="" />
+                  <span className={`${!open && "hidden"} origin-left duration-200`}>
+                    {Menu.title}
+                  </span>
+                </li>
+              </Tooltip>
+            </Link>
+          ))}
+        </ul>
       </div>
       <Outlet />
     </React.Fragment>
