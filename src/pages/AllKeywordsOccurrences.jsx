@@ -39,24 +39,24 @@ const AllKeywordsOccurrences = () => {
         navigate(`/trending_job_keywords/all_keywords/${keyword}`);
     };
 
-    // useEffect(() => {
-    //     fetch("/api/keyword_counts")
-    //         .then((response) => {
-    //             if (!response.ok) {
-    //                 throw new Error('Network response was not ok');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then((data) => {
-    //             if (data) {
-    //                 const rowData = data.map(item => [item.Keyword, item.Count]);
-    //                 setData(rowData);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching data:', error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        fetch("/api/keyword_counts")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data) {
+                    const rowData = data.map(item => [item.Keyword, item.Count]);
+                    setData(rowData);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     return (
             <div className='py-10 min-h-screen grid place-items-center'>

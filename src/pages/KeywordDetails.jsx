@@ -41,26 +41,26 @@ const KeywordDetails = () => {
         navigate('/trending_job_keywords/all_keywords/keyword/file', { state: '../assets/JD 1.txt' });
     };
 
-    // useEffect(() => {
-    //     if (keyword) {
-    //         fetch(`/api/keyword/${keyword}`)
-    //             .then((response) => {
-    //                 if (!response.ok) {
-    //                     throw new Error('Network response was not ok');
-    //                 }
-    //                 return response.json();
-    //             })
-    //             .then((data) => {
-    //                 if (data) {
-    //                     const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
-    //                     setData(rowData);
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error fetching data:', error);
-    //             });
-    //     }
-    // }, [keyword]);
+    useEffect(() => {
+        if (keyword) {
+            fetch(`/api/keyword/${keyword}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
+                        setData(rowData);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    }, [keyword]);
 
     return (
             <div className='py-10 min-h-screen grid place-items-center'>
