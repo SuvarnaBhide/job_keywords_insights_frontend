@@ -8,6 +8,7 @@ import { dataTableOptions } from '../theme/MuiDataTable/dataTableOptions';
 import { allKeywordsRowData } from '../components/MuiDataTable/dataTableRowData';
 import { allKeywordsColumnData } from '../components/MuiDataTable/dataTableColumnData';
 import { useNavigate } from 'react-router-dom';
+import { getData } from '../app/axios/axios';
 
 
 const AllKeywordsOccurrences = () => {
@@ -40,22 +41,19 @@ const AllKeywordsOccurrences = () => {
     };
 
     useEffect(() => {
-        fetch("/api/keyword_counts")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
+        const fetchData = async () => {
+            try {
+                const data = await getData('keyword_counts');
                 if (data) {
                     const rowData = data.map(item => [item.Keyword, item.Count]);
                     setData(rowData);
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching data:', error);
-            });
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (

@@ -8,6 +8,7 @@ import { dataTableOptions } from '../theme/MuiDataTable/dataTableOptions';
 import { keywordRowData } from '../components/MuiDataTable/dataTableRowData';
 import { keywordColumnData } from '../components/MuiDataTable/dataTableColumnData';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getData } from '../app/axios/axios';
 
 
 const KeywordDetails = () => {
@@ -42,24 +43,21 @@ const KeywordDetails = () => {
     };
 
     useEffect(() => {
-        if (keyword) {
-            fetch(`/api/keyword/${keyword}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data) {
-                        const rowData = data.map(item => [item.Company, item["Job Title"], item.Filename]);
-                        setData(rowData);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        }
+        const fetchData = async () => {
+            try {
+                const data = await getData('keyword/' + keyword);
+                if (data) {
+                    const rowData = data.map(
+                        item => [item.Company, item["Job Title"], item.Filename]
+                    );
+                    setData(rowData);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }, [keyword]);
 
     return (
