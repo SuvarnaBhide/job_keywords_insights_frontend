@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ReactComponent as ReactLogo } from '../../assets/react.svg';
+import { ReactComponent as ReactLogo } from '../../../assets/react.svg';
 
 export const allKeywordsColumnData = [
     {

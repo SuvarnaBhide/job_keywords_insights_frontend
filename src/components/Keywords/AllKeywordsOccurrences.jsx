@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import '../styles/index.css';
-import getMuiDataTableTheme from '../theme/MuiDataTable/dataTableTheme';
-import { dataTableOptions } from '../theme/MuiDataTable/dataTableOptions';
-import { allKeywordsRowData } from '../components/MuiDataTable/dataTableRowData';
-import { allKeywordsColumnData } from '../components/MuiDataTable/dataTableColumnData';
+import '../../styles/index.css';
+import getMuiDataTableTheme from '../../theme/MuiDataTable/dataTableTheme';
+import { dataTableOptions } from '../../theme/MuiDataTable/dataTableOptions';
+import { allKeywordsRowData } from '../common/MuiDataTable/dataTableRowData';
+import { allKeywordsColumnData } from '../common/MuiDataTable/dataTableColumnData';
 import { useNavigate } from 'react-router-dom';
-import { getData } from '../app/axios/axios';
+import { getData } from '../../app/axios/axios';
 import { CircularProgress } from '@mui/material';
 
 

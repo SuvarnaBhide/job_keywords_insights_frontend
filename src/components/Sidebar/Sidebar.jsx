@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import '../styles/index.css';
-import '../styles/Sidebar.css';
-import mainLogo from '../assets/logo.png';
-import settingsLogo from '../assets/settings.svg';
-import helpLogo from '../assets/help_icon.png';
-import feedbackLogo from '../assets/feedback_icon.png';
-import controlLogo from '../assets/control.png';
+import '../../styles/index.css';
+import '../../styles/Sidebar.css';
+import mainLogo from '../../assets/logo.png';
+import settingsLogo from '../../assets/settings.svg';
+import controlLogo from '../../assets/control.png';
 import { Tooltip } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 

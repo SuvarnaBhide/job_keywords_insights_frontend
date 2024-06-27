@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Sidebar from '../../pages/Sidebar.jsx';
-import AllKeywordsOccurrences from '../../pages/AllKeywordsOccurrences.jsx';
+import Sidebar from '../../components/Sidebar/Sidebar.jsx';
+import AllKeywordsOccurrences from '../../components/Keywords/AllKeywordsOccurrences.jsx';
 import TrendingJobKeywords from '../../pages/TrendingJobKeywords.jsx';
-import KeywordDetails from '../../pages/KeywordDetails.jsx';
-import FileDetails from '../../pages/FileDetails.jsx';
+import KeywordDetails from '../../components/Keywords/KeywordDetails.jsx';
+import FileDetails from '../../components/Keywords/FileDetails.jsx';
 
 const AppRoutes = () => (
   <Routes>
