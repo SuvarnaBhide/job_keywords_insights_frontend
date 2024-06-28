@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from "mui-datatables";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../../styles/index.css';
@@ -10,16 +11,11 @@ import { keywordColumnData } from '../common/MuiDataTable/dataTableColumnData';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getData } from '../../app/axios/axios';
 import { CircularProgress } from '@mui/material';
-
-
+import useKeywordsDetails from '../../app/hooks/useKeywordsDetails';
 const KeywordDetails = () => {
-
-    const { keyword } = useParams();
+    const { keyword } = useSelector((state) => state.keywords);
     const navigate = useNavigate();
-
-    const [data, setData] = useState(keywordRowData);
-    const [loading, setLoading] = useState(true);
-
+    const { keywordDetailsArray, loading } = useKeywordsDetails();
     const columnsWithClickHandling = keywordColumnData.map((column) => ({
         ...column,
         options: {
@@ -44,26 +40,6 @@ const KeywordDetails = () => {
         navigate('/trending_job_keywords/all_keywords/keyword/file', { state: '../assets/JD 1.txt' });
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getData('keyword/' + keyword);
-                if (data) {
-                    const rowData = data.map(
-                        item => [item.Company, item["Job Title"], item.Filename]
-                    );
-                    setData(rowData);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [keyword]);
-
     return (
             <div className='py-10 min-h-screen grid place-items-center'>
                 <div className="w-10/12 max-w-4xl mb-4">
@@ -80,7 +56,7 @@ const KeywordDetails = () => {
                 {loading ? <CircularProgress /> : <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
-                            data={data}
+                            data={keywordDetailsArray}
                             columns={columnsWithClickHandling}
                             options={dataTableOptions}
                         />

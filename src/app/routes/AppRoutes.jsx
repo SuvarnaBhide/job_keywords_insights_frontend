@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';

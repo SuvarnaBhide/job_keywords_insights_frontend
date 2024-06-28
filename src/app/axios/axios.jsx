@@ -9,22 +9,22 @@ const axiosInstance = axios.create({
 
 export default axiosInstance;
 
-export const getData = async (path) => {
-  try {
-    const response = await axios.get(`${API_URL}/${path}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
-};
+// export const getData = async (path) => {
+//   try {
+//     const response = await axios.get(`${API_URL}/${path}`);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     throw error;
+//   }
+// };
 
-export const postData = async (data) => {
-  try {
-    const response = await axios.post(`${API_URL}/data`, data);
-    return response.data;
-  } catch (error) {
-    console.error('Error posting data:', error);
-    throw error;
-  }
-};
+// export const postData = async (data) => {
+//   try {
+//     const response = await axios.post(`${API_URL}/data`, data);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error posting data:', error);
+//     throw error;
+//   }
+// };

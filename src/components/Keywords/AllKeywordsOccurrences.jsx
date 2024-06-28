@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from "mui-datatables";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../../styles/index.css';
@@ -10,13 +11,20 @@ import { allKeywordsColumnData } from '../common/MuiDataTable/dataTableColumnDat
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../../app/axios/axios';
 import { CircularProgress } from '@mui/material';
+import { setKeyword } from '../../app/redux/slices/keywordsSlice';
+import useKeywordsDetails from '../../app/hooks/useKeywordsDetails'; 
 
 
 const AllKeywordsOccurrences = () => {
-
-    const [data, setData] = useState(allKeywordsRowData);
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { keywordCountsArray, loading } = useKeywordsDetails();
+    const { keyword } = useSelector((state) => state.keywords);
+
+    const handleCellClick = (keyword) => {
+        dispatch(setKeyword(keyword));
+        navigate(`/trending_job_keywords/all_keywords/${keyword}`);
+    };
 
     const columnsWithClickHandling = allKeywordsColumnData.map((column) => ({
         ...column,
@@ -38,28 +46,6 @@ const AllKeywordsOccurrences = () => {
         }
     }));
 
-    const handleCellClick = (keyword) => {
-        navigate(`/trending_job_keywords/all_keywords/${keyword}`);
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getData('keyword_counts');
-                if (data) {
-                    const rowData = data.map(item => [item.Keyword, item.Count]);
-                    setData(rowData);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
     return (
             <div className='py-10 min-h-screen grid place-items-center'>
                 <div className="w-10/12 max-w-4xl mb-4">
@@ -76,7 +62,7 @@ const AllKeywordsOccurrences = () => {
                 {loading? <CircularProgress /> : <div className='w-10/12 max-w-4xl'>
                     <ThemeProvider theme={getMuiDataTableTheme()}>
                         <MUIDataTable
-                            data={data}
+                            data={keywordCountsArray}
                             columns={columnsWithClickHandling}
                             options={dataTableOptions}
                         />

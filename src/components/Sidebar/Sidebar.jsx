@@ -14,7 +14,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const Menus = [
-    { title: "Trending Job Keywords", src: settingsLogo, link: "/trending_job_keywords/all_keywords" }
+    { title: "Job Keywords", src: settingsLogo, link: "/trending_job_keywords/all_keywords" }
   ];
 
   return (

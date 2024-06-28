@@ -22,9 +22,7 @@ export const allKeywordsColumnData = [
         options: {
             customBodyRender: (value) => {
                 return (
-                    <div
-                        onClick={() => console.log('Button Clicked')}
-                    >
+                    <div>
                         <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
                             <strong>{value}</strong> Occurrences
                         </p>
