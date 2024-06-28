@@ -5,6 +5,10 @@ import {
   getAllKeywordsOccurrencesAction,
   getKeywordDetailsAction
 } from '../services/keywordsService';
+import {
+  setKeywordDetailCount,
+  setKeywordCount
+} from '../redux/slices/keywordsSlice'
 
 const useKeywordsDetails = () => {
   const dispatch = useDispatch();
@@ -55,6 +59,11 @@ const useKeywordsDetails = () => {
       setKeywordDetailsArray(data);
     }
   }, [keywordDetails, getKeywordDetails, keyword]);
+
+  useEffect(() => {
+    dispatch(setKeywordCount(keywordCountsArray.length))
+    dispatch(setKeywordDetailCount(keywordDetailsArray.length))
+  }, [keywordDetailsArray, keywordCountsArray, dispatch]);
 
   return {
     keywordCountsArray,

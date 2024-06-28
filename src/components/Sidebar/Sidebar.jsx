@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { setKeyword, setKeywordDetails } from '../../app/redux/slices/keywordsSlice';
 import '../../styles/index.css';
 import '../../styles/Sidebar.css';
 import mainLogo from '../../assets/logo.png';
@@ -9,6 +11,7 @@ import { Tooltip } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +19,11 @@ const Sidebar = () => {
   const Menus = [
     { title: "Job Keywords", src: settingsLogo, link: "/trending_job_keywords/all_keywords" }
   ];
+
+  const resetKeywordData = () => {
+    dispatch(setKeywordDetails([]));
+    dispatch(setKeyword(''));
+  };
 
   return (
     <React.Fragment>
@@ -47,7 +55,7 @@ const Sidebar = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <Link to={Menu.link} className='no-underline'>
+            <Link to={Menu.link} className='no-underline' onClick={resetKeywordData}>
               <Tooltip key={index} title={Menu.title} placement="right">
                 <li
                   className={`flex rounded-md p-2 cursor-pointer hover:bg-[#51808B] text-gray-300 text-sm items-center gap-x-4 

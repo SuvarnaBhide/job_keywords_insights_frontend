@@ -7,6 +7,8 @@ import {
 } from '../../services/keywordsService';
 
 const initialState = {
+  keywordCount: 0,
+  keywordDetailCount: 0,
   keywordCounts: [], // { keyword: count, ... }
   keyword: '',
   keywordDetails: [], // 
@@ -18,6 +20,15 @@ const keywordsSlice = createSlice({
   reducers: {
     setKeyword: (state, action) => {
       state.keyword = action.payload;
+    },
+    setKeywordDetails: (state, action) => {
+      state.keywordDetails = action.payload;
+    },
+    setKeywordDetailCount: (state, action) => {
+      state.keywordDetailCount = action.payload;
+    },
+    setKeywordCount: (state, action) => {
+      state.keywordCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -34,7 +45,7 @@ const keywordsSlice = createSlice({
 });
 
 export const {
-  setKeyword
+  setKeyword, setKeywordDetails, setKeywordCount, setKeywordDetailCount
 } = keywordsSlice.actions;
 
 export default keywordsSlice.reducer;
