@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// Slice containes crawler tab related states
 import { createSlice } from '@reduxjs/toolkit';
 import {
     getAllKeywordsOccurrencesAction,

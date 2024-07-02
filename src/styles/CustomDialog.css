@@ -1,0 +1,23 @@
+.dialog__container {
+    display: flex;
+    flex-direction: column;
+    padding: 36px 40px;
+    overflow-y: auto;
+    overflow: hidden;
+  }
+  
+  .dialog__closeiconbtn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+  .dialog__closeicon {
+    width: 10px;
+    height: 10px;
+    color: #006494;
+  }
+  
+  .dialog__content {
+    padding: 0;
+  }
+  
