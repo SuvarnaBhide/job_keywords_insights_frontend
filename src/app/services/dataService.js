@@ -15,7 +15,7 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
         result = await callPostApi(endpoint, payload);
         if (!result.success) throw new Error(result.error);
   
-        //thunkAPI.dispatch(listCrawlerConfigsAction());
+        thunkAPI.dispatch(getAllDataAction());
   
         return result;
       } catch (error) {

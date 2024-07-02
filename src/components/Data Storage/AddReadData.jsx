@@ -8,19 +8,31 @@ import { setKeyword } from '../../app/redux/slices/keywordsSlice';
 import useKeywordsDetails from '../../app/hooks/useKeywordsDetails'; 
 import CustomDialog from '../common/Dialogs/CustomDialog';
 import AddDataDialog from '../common/Dialogs/AddDataDialog';
-
+import { getAllDataAction } from '../../app/services/dataService';
+import useDataStorageOperations from '../../app/hooks/useDataStorageOperations';
+import { ThemeProvider } from '@mui/material/styles';
+import getMuiDataTableTheme from '../../theme/MuiDataTable/dataTableTheme';
+import { dataTableOptions } from '../../theme/MuiDataTable/dataTableOptions';
+import '../../styles/index.css';
+import MUIDataTable from "mui-datatables";
 
 const AddReadData = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { keywordCountsArray, loading } = useKeywordsDetails();
     const { allData } = useSelector((state) => state.data);
     const [openDialog, setOpenDialog] = useState(false);
+    const {loading, setLoading } = useDataStorageOperations();
 
     const handleCellClick = (keyword) => {
         dispatch(setKeyword(keyword));
         navigate(`/trending_job_keywords/all_keywords/${keyword}`);
     };
+
+    useEffect(() => {
+        setLoading(true);
+        dispatch(getAllDataAction());
+        setLoading(false);
+    }, [dispatch, setLoading]);
 
     return (
         <div className='py-10 min-h-screen grid place-items-center'>
@@ -35,9 +47,14 @@ const AddReadData = () => {
                     </button>
                 </div>
             </div>
-            {loading? <CircularProgress /> : 
-            <div className='w-10/12 max-w-4xl'>
-                    {allData}
+            {loading? <CircularProgress /> : <div className='w-10/12 max-w-4xl'>
+                <ThemeProvider theme={getMuiDataTableTheme()}>
+                    <MUIDataTable
+                        data={allData.map((data) => [data])}
+                        columns={['All Data']}
+                        options={dataTableOptions}
+                    />
+                </ThemeProvider>
             </div>}
 
             <CustomDialog
