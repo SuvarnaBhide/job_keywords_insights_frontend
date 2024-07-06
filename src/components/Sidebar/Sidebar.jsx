@@ -20,6 +20,7 @@ const Sidebar = () => {
   const Menus = [
     { title: "Job Keywords", src: settingsLogo, link: "/trending_job_keywords/all_keywords" },
     { title: "Data Storage", src: controlLogo, link: "/data_storage/" },
+    { title: "Quiz", src: mainLogo, link: "/quiz/" },
   ];
 
   const resetKeywordData = () => {
@@ -61,7 +62,7 @@ const Sidebar = () => {
               <Tooltip key={index} title={Menu.title} placement="right">
                 <li
                   className={`flex p-5 cursor-pointer hover:bg-[#335E68] text-[#E6E6E6] text-sm font-semibold items-center gap-x-4 
-                    ${Menu.gap ? "mt-9" : "mt-5"}  ${location.pathname === Menu.link && "bg-[#51808B]"} `}
+                    ${Menu.gap ? "mt-9" : "mt-5"}  ${location.pathname.includes(Menu.link) && "bg-[#51808B]"} `}
                 >
                   <img src={Menu.src} height="20px"width="20px" alt="" />
                   <span className={`${!open && "hidden"} origin-left duration-200`}>
