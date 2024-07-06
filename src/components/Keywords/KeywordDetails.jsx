@@ -39,7 +39,7 @@ const KeywordDetails = () => {
     }));
 
     const handleCellClick = () => {
-        navigate('/trending_job_keywords/all_keywords/keyword/file', { state: '../assets/JD 1.txt' });
+        navigate(`/trending_job_keywords/all_keywords/${keyword}/file`);
     };
 
     return (

@@ -24,7 +24,7 @@ const AppRoutes = () => (
         <Route index element={<Navigate to="all_keywords" />} />
         <Route path="all_keywords" element={<AllKeywordsOccurrences />} />
         <Route path="all_keywords/:keyword" element={<KeywordDetails />} />
-        <Route path="all_keywords/keyword/file" element={<FileDetails />} />
+        <Route path="all_keywords/:keyword/file" element={<FileDetails />} />
       </Route>
 
       <Route path="data_storage" element={<DataStorage />}>
