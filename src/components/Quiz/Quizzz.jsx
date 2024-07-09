@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,32 +12,37 @@ const Quizzz = () => {
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]); // Track selected options
   const { questions, quizID, hasFetchedQuestions } = useSelector((state) => state.quiz);
-  const { loading } = useQuizDetails();
-  const { saveAttempt, getQuestions } = useQuizDetails();
+  const { loading, saveAttempt, getQuestions } = useQuizDetails();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const startTime = useRef(new Date());
 
   useEffect(() => {
     if (quizID && !hasFetchedQuestions) {
-      //console.log('Fetching questions for quizID:', quizID);
+      console.log('Fetching questions for quizID:', quizID);
       getQuestions({ quiz_id: quizID });
     }
   }, [quizID, hasFetchedQuestions, getQuestions]);
 
+  useEffect(() => {
+    console.log('Selected Options:', selectedOptions);
+  }, [selectedOptions]);
+
   const submitQuiz = async () => {
-
     const endTime = new Date();
-    const timeTaken = Math.round((endTime - startTime.current) / 1000); //Time in seconds
+    const timeTaken = Math.round((endTime - startTime.current) / 1000); // Time in seconds
 
-    const details = questions.map((question, idx) => ({
-      question_id: question.id,
-      option_id: question.options[selectedOption].id,
-      content: ''
-    }));
+    // Build the details list with selected option IDs
+    const details = questions.map((question) => {
+      const selectedOption = selectedOptions.find(option => option.question_id === question.id);
+      return {
+        question_id: question.id,
+        option_id: selectedOption ? selectedOption.option_id : null,
+        content: ''
+      };
+    });
 
     const dateTime = endTime.toLocaleString('en-US', {
       hour: 'numeric',
@@ -50,18 +54,18 @@ const Quizzz = () => {
       year: 'numeric'
     });
 
-    // TODO: include dateTime and timeTaken in payload
-
     const payload = {
       user_id: 1,
-      quiz_id: questions[0].quiz_id,
-      details
+      quiz_id: quizID,
+      details,
+      dateTime,
+      timeTaken
     };
 
     try {
-      dispatch(setHasFetchedAttempts(false))
-      const response = saveAttempt(payload);
-      //console.log('Attempt saved:', response);
+      dispatch(setHasFetchedAttempts(false));
+      const response = await saveAttempt(payload);
+      console.log('Attempt saved:', response);
     } catch (error) {
       console.error('Error saving attempt:', error);
     }
@@ -76,7 +80,6 @@ const Quizzz = () => {
       }
       setIndex((prevIndex) => prevIndex + 1);
       setLock(false);
-      setSelectedOption(null);
     }
   };
 
@@ -86,12 +89,26 @@ const Quizzz = () => {
 
   const checkAnswer = (optionIndex) => {
     if (!lock) {
-      setSelectedOption(optionIndex);
+      const selectedOptionId = questions[index].options[optionIndex].id;
+      const questionId = questions[index].id;
+
+      // Update the selected option for the current question
+      setSelectedOptions((prevSelectedOptions) => {
+        const existingOptionIndex = prevSelectedOptions.findIndex(option => option.question_id === questionId);
+        if (existingOptionIndex > -1) {
+          // Update existing entry
+          const updatedOptions = [...prevSelectedOptions];
+          updatedOptions[existingOptionIndex] = { question_id: questionId, option_id: selectedOptionId };
+          return updatedOptions;
+        } else {
+          // Add new entry
+          return [...prevSelectedOptions, { question_id: questionId, option_id: selectedOptionId }];
+        }
+      });
+
       const isCorrect = questions[index].options[optionIndex].is_correct;
       if (isCorrect) setScore((prevScore) => prevScore + 1);
       setLock(true);
-
-      //console.log('quizID: ', quizID);
     }
   };
 
@@ -109,16 +126,16 @@ const Quizzz = () => {
             Your score is: {score} out of {questions.length}
           </h2>
           <div className="flex justify-center mt-4">
-          <button
-            onClick={viewAttemptsClick}
-            className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-60 ${
-              !lock ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={!lock}
-          >
-            View Previous Attempts
-          </button>
-        </div>
+            <button
+              onClick={viewAttemptsClick}
+              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-60 ${
+                !lock ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              disabled={!lock}
+            >
+              View Previous Attempts
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -141,7 +158,7 @@ const Quizzz = () => {
           {questions[index].options.map((option, optionIndex) => {
             let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
             if (lock) {
-              if (optionIndex === selectedOption) {
+              if (option.id === selectedOptions.find(option => option.question_id === questions[index].id)?.option_id) {
                 className += option.is_correct ? ' correct' : ' wrong';
               } else if (option.is_correct) {
                 className += ' correct';
