@@ -10,6 +10,8 @@ import controlLogo from '../../assets/control.png';
 import drawerLogo from '../../assets/drawer.png';
 import { Tooltip } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { setQuizID, setQuizScore } from "../../app/redux/slices/quizSlice";
+import { setHasFetchedAttempts, setHasFetchedQuestions } from "../../app/redux/slices/quizSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -23,9 +25,17 @@ const Sidebar = () => {
     { title: "Quiz", src: mainLogo, link: "/quiz/" },
   ];
 
-  const resetKeywordData = () => {
+  const resetData = (link) => {
     dispatch(setKeywordDetails([]));
     dispatch(setKeyword(''));
+    dispatch(setQuizScore('0/0'));
+
+    // Reset quizID only if the 'Quiz' menu item is clicked
+    if (link === "/quiz/") {
+      dispatch(setQuizID(null));
+      // dispatch(setHasFetchedAttempts(false));
+      // dispatch(setHasFetchedQuestions(false));
+    }
   };
 
   return (
@@ -58,13 +68,13 @@ const Sidebar = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <Link to={Menu.link} className='no-underline' onClick={resetKeywordData}>
-              <Tooltip key={index} title={Menu.title} placement="right">
+            <Link to={Menu.link} className='no-underline' key={index} onClick={() => resetData(Menu.link)}>
+              <Tooltip title={Menu.title} placement="right">
                 <li
                   className={`flex p-5 cursor-pointer hover:bg-[#335E68] text-[#E6E6E6] text-sm font-semibold items-center gap-x-4 
                     ${Menu.gap ? "mt-9" : "mt-5"}  ${location.pathname.includes(Menu.link) && "bg-[#51808B]"} `}
                 >
-                  <img src={Menu.src} height="20px"width="20px" alt="" />
+                  <img src={Menu.src} height="20px" width="20px" alt="" />
                   <span className={`${!open && "hidden"} origin-left duration-200`}>
                     {Menu.title}
                   </span>

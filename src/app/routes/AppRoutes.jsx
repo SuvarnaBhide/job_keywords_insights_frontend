@@ -10,6 +10,9 @@ import DataStorage from '../../pages/DataStorage.jsx';
 import AddReadData from '../../components/Data Storage/AddReadData.jsx';
 import Quiz from '../../pages/Quiz.jsx';
 import Quizzz from '../../components/Quiz/Quizzz.jsx';
+import QuizDetails from '../../components/Quiz/QuizDetails.jsx';
+import QuizzesArea from '../../components/Quiz/QuizzesArea.jsx';
+import AttemptDetails from '../../components/Quiz/AttemptDetails.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -33,12 +36,15 @@ const AppRoutes = () => (
       </Route>
 
       <Route path="quiz" element={<Quiz />}>
-        <Route index element={<Navigate to="quizzz" />} />
-        <Route path="quizzz" element={<Quizzz/>} />
+        <Route index element={<Navigate to="quizzes" />} />
+        <Route path="quizzes" element={<QuizzesArea/>} />
+        <Route path="quizzes/quizdetails" element={<QuizDetails/>} />
+        <Route path="quizzes/quizdetails/quizzz" element={<Quizzz/>} />
+        <Route path="quizzes/quizdetails/attemptdetails" element={<AttemptDetails />} />
       </Route>
       
-      {/* Fallback route for unmatched paths */}
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* Fallback route for unmatched paths
+      <Route path="*" element={<Navigate to="/" />} /> */}
     </Route>
   </Routes>
 );
