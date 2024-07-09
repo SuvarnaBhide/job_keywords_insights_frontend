@@ -32,7 +32,7 @@ const AttemptInfo = ({attempt, attemptIndex}) => {
                 {attempt.quizName}
             </h3>
 
-            <p class="mt-1 text-xs font-medium text-gray-600"><strong>Date: </strong>8 Jul 2024</p>
+            <p class="mt-1 text-xs font-medium text-gray-600"><strong>Date & Time: </strong>{attempt.attemptDate}</p>
             </div>
         </div>
 

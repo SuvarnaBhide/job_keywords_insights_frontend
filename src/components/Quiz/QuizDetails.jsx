@@ -34,7 +34,7 @@ const QuizType = () => {
           <div className="max-w-lg lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
             <div
               onClick={newQuizTab}
-              className="inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
+              className={`bg-[#1890D4] cursor-pointer hover:bg-[#3183b2] text-white font-semibold py-3 px-12 rounded text-[12px] w-fit ${false? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1890D4]'}`}
             >
               Start A New Quiz
             </div>
