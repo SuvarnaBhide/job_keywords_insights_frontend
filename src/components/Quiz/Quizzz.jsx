@@ -112,7 +112,7 @@ const Quizzz = () => {
 
   if (loading || !shuffledQuestions || shuffledQuestions.length === 0) {
     return <div className='flex justify-center items-center w-full'>
-      <CircularProgress />;
+      <CircularProgress />
     </div>
   }
 

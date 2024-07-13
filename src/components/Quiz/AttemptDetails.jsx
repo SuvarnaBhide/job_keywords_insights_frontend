@@ -44,7 +44,9 @@ const AttemptDetails = () => {
   };
 
   if (loading || questions.length === 0 || quizScore === undefined) {
-    return <CircularProgress />;
+    return <div className='flex justify-center items-center w-full'>
+      <CircularProgress />
+    </div>
   }
 
   // Get current question and its options
