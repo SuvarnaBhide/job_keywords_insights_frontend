@@ -8,10 +8,12 @@ import { CircularProgress } from '@mui/material';
 const QuizzesArea = () => {
 
     const { quizzes } = useSelector((state) => state.quiz);
-    const { loading } = useQuizDetails();
+    let { loading } = useQuizDetails();
+
+    loading = true;
 
     return (
-        <div className=''>
+        <div className='w-full'>
             <h2 className='text-xl font-bold'>Quizzes</h2>
             {loading ? (
                 <div className="flex items-center justify-center mt-6">
