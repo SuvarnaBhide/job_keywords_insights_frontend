@@ -8,9 +8,8 @@ import { CircularProgress } from '@mui/material';
 const QuizzesArea = () => {
 
     const { quizzes } = useSelector((state) => state.quiz);
-    let { loading } = useQuizDetails();
+    const { loading } = useQuizDetails();
 
-    loading = true;
 
     return (
         <div className='w-full'>
