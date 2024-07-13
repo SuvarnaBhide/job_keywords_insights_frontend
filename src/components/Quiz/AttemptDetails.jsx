@@ -20,7 +20,6 @@ const AttemptDetails = () => {
   const { quizScore } = useSelector((state) => state.quiz);
 
   useEffect(() => {
-    //console.log('attempts: ', attempts, 'attemptIndex: ', attemptIndex);
     if (attemptIndex && attempts[attemptIndex]) {
       dispatch(setQuizScore(attempts[attemptIndex].quizScore));
     }
@@ -48,6 +47,14 @@ const AttemptDetails = () => {
     return <CircularProgress />;
   }
 
+  // Get current question and its options
+  const currentQuestion = questions[index];
+  const responseForCurrentQuestion = attempt.responses.find(response => response.question_id === currentQuestion.id);
+  const optionOrder = responseForCurrentQuestion ? responseForCurrentQuestion.option_order : [];
+
+  // Create a mapping of optionId to option data
+  const optionMap = new Map(currentQuestion.options.map(option => [option.id, option]));
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
@@ -59,18 +66,25 @@ const AttemptDetails = () => {
         </div>
         <hr className="border-0 h-0.5 bg-[#707070]" />
         <h2 className="text-lg font-medium">
-          {index + 1}. {questions[index].content}
+          {index + 1}. {currentQuestion.content}
         </h2>
         <ul>
-          {questions[index].options.map((option) => {
-            let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
-            const response = attempt.responses.find(response => response.question_id === questions[index].id);
+          {/* Display options in the order specified by option_order */}
+          {(optionOrder.length > 0 ? optionOrder : currentQuestion.options.map(option => option.id)).map((optionId) => {
+            const option = optionMap.get(parseInt(optionId));
+            if (!option) return null; // Skip if option not found
 
-            if (response && response.option_id === option.id) {
-              className += option.is_correct ? ' correct' : ' wrong';
-            } else if (option.is_correct) {
+            let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
+
+            // Determine if the option is the selected one or correct/wrong
+            const isSelected = responseForCurrentQuestion && responseForCurrentQuestion.option_id === option.id;
+            const isCorrect = option.is_correct;
+            if (isSelected) {
+              className += isCorrect ? ' correct' : ' wrong';
+            } else if (isCorrect) {
               className += ' correct';
             }
+
             return (
               <li
                 key={option.id}
@@ -81,7 +95,7 @@ const AttemptDetails = () => {
             );
           })}
         </ul>
-        <div className="flex justify-between mt-4 ">
+        <div className="flex justify-between mt-4">
           <button
             onClick={handlePreviousClick}
             className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-24 ${

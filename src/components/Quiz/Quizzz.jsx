@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/index.css';
@@ -7,17 +7,25 @@ import useQuizDetails from '../../app/hooks/useQuizDetails';
 import { CircularProgress } from '@mui/material';
 import { setHasFetchedAttempts } from '../../app/redux/slices/quizSlice';
 
+// Utility function to shuffle array
+const shuffleArray = (array) => {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+};
+
 const Quizzz = () => {
   const [index, setIndex] = useState(0);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]); // Track selected options
+  const [shuffledQuestions, setShuffledQuestions] = useState([]); // Store shuffled questions
   const { questions, quizID, hasFetchedQuestions } = useSelector((state) => state.quiz);
   const { loading, saveAttempt, getQuestions } = useQuizDetails();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const startTime = useRef(new Date());
 
   useEffect(() => {
     if (quizID && !hasFetchedQuestions) {
@@ -27,45 +35,35 @@ const Quizzz = () => {
   }, [quizID, hasFetchedQuestions, getQuestions]);
 
   useEffect(() => {
-    console.log('Selected Options:', selectedOptions);
-  }, [selectedOptions]);
+    if (questions.length > 0) {
+      const shuffled = questions.map((question) => ({
+        ...question,
+        options: shuffleArray(question.options),
+      }));
+      setShuffledQuestions(shuffled);
+    }
+  }, [questions]);
 
   const submitQuiz = async () => {
-    const endTime = new Date();
-    const timeTaken = Math.round((endTime - startTime.current) / 1000); // Time in seconds
-
-    // Build the details list with selected option IDs
-    const details = questions.map((question) => {
+    const details = shuffledQuestions.map((question) => {
       const selectedOption = selectedOptions.find(option => option.question_id === question.id);
       return {
         question_id: question.id,
         option_id: selectedOption ? selectedOption.option_id : null,
-        content: ''
+        content: '',
+        order: question.options.map(option => option.id) // Save the shuffled order of option IDs
       };
-    });
-
-    const dateTime = endTime.toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      hour12: true,
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
     });
 
     const payload = {
       user_id: 1,
       quiz_id: quizID,
-      details,
-      dateTime,
-      timeTaken
+      details
     };
 
     try {
       dispatch(setHasFetchedAttempts(false));
-      const response = await saveAttempt(payload);
-      console.log('Attempt saved:', response);
+      saveAttempt(payload);
     } catch (error) {
       console.error('Error saving attempt:', error);
     }
@@ -73,7 +71,7 @@ const Quizzz = () => {
 
   const handleNextClick = () => {
     if (lock) {
-      if (index === questions.length - 1) {
+      if (index === shuffledQuestions.length - 1) {
         setResult(true);
         submitQuiz(); // Save the attempt when quiz is finished
         return;
@@ -89,8 +87,8 @@ const Quizzz = () => {
 
   const checkAnswer = (optionIndex) => {
     if (!lock) {
-      const selectedOptionId = questions[index].options[optionIndex].id;
-      const questionId = questions[index].id;
+      const selectedOptionId = shuffledQuestions[index].options[optionIndex].id;
+      const questionId = shuffledQuestions[index].id;
 
       // Update the selected option for the current question
       setSelectedOptions((prevSelectedOptions) => {
@@ -106,13 +104,13 @@ const Quizzz = () => {
         }
       });
 
-      const isCorrect = questions[index].options[optionIndex].is_correct;
+      const isCorrect = shuffledQuestions[index].options[optionIndex].is_correct;
       if (isCorrect) setScore((prevScore) => prevScore + 1);
       setLock(true);
     }
   };
 
-  if (loading || !questions || questions.length === 0) {
+  if (loading || !shuffledQuestions || shuffledQuestions.length === 0) {
     return <CircularProgress />;
   }
 
@@ -123,7 +121,7 @@ const Quizzz = () => {
           <h1>Quiz App</h1>
           <hr className="border-0 h-0.5 bg-[#707070]" />
           <h2 className="text-lg font-medium">
-            Your score is: {score} out of {questions.length}
+            Your score is: {score} out of {shuffledQuestions.length}
           </h2>
           <div className="flex justify-center mt-4">
             <button
@@ -147,18 +145,18 @@ const Quizzz = () => {
         <div className="flex justify-between">
           <h1>Quiz App</h1>
           <h1>
-            {index + 1} of {questions.length} questions
+            {index + 1} of {shuffledQuestions.length} questions
           </h1>
         </div>
         <hr className="border-0 h-0.5 bg-[#707070]" />
         <h2 className="text-lg font-medium">
-          {index + 1}. {questions[index].content}
+          {index + 1}. {shuffledQuestions[index].content}
         </h2>
         <ul>
-          {questions[index].options.map((option, optionIndex) => {
+          {shuffledQuestions[index].options.map((option, optionIndex) => {
             let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
             if (lock) {
-              if (option.id === selectedOptions.find(option => option.question_id === questions[index].id)?.option_id) {
+              if (option.id === selectedOptions.find(option => option.question_id === shuffledQuestions[index].id)?.option_id) {
                 className += option.is_correct ? ' correct' : ' wrong';
               } else if (option.is_correct) {
                 className += ' correct';
