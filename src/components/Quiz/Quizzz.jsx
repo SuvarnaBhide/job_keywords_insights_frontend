@@ -111,12 +111,14 @@ const Quizzz = () => {
   };
 
   if (loading || !shuffledQuestions || shuffledQuestions.length === 0) {
-    return <CircularProgress />;
+    return <div className='flex justify-center items-center w-full'>
+      <CircularProgress />;
+    </div>
   }
 
   if (result) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center w-full">
         <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
           <h1>Quiz App</h1>
           <hr className="border-0 h-0.5 bg-[#707070]" />
@@ -140,7 +142,7 @@ const Quizzz = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center w-full">
       <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
         <div className="flex justify-between">
           <h1>Quiz App</h1>

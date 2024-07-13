@@ -4,17 +4,30 @@ import '../../styles/index.css';
 import '../../styles/QuizType.css';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as CodeIcon } from '../../assets/code_icon.svg';
+import { CircularProgress } from '@mui/material';
 
 
-const AttemptInfo = ({attempt, attemptIndex}) => {
+const AttemptInfo = ({attempt, attemptIndex, loading}) => {
 
     const navigate = useNavigate();
 
     const newViewTab = (attemptIndex) => {
-        // Use an absolute path
         navigate(`attemptdetails?attemptIndex=${attemptIndex}`);
-        // window.open(`attemptdetails?attemptIndex=${attemptIndex}`, '_blank');
     };
+    
+    const CircularProgressStyled = () => {
+        return (
+            <CircularProgress
+              style={{
+                position: 'absolute',
+                width: 15,
+                height: 15,
+                margin: '5px',
+                marginTop: '2px'
+              }}
+            />
+        );
+      };
 
   return (
     <div
@@ -32,7 +45,11 @@ const AttemptInfo = ({attempt, attemptIndex}) => {
                 {attempt.quizName}
             </h3>
 
-            <p class="mt-1 text-xs font-medium text-gray-600"><strong>Date & Time: </strong>{attempt.attemptDate}</p>
+            <p class="mt-1 text-xs font-medium text-gray-600"><strong>Date & Time: </strong>
+                {loading ? 
+                    CircularProgressStyled() : <>{attempt.attemptDate}</>
+                }
+            </p>
             </div>
         </div>
 
@@ -45,16 +62,22 @@ const AttemptInfo = ({attempt, attemptIndex}) => {
 
         <dl class="mt-6 flex gap-4 sm:gap-6">
             <div class="flex flex-col-reverse">
-            <dt class="text-sm font-medium text-gray-700">{attempt.quizScore}</dt>
-            <dd class="text-xs text-gray-600">Score</dd>
+                <dt class="text-sm font-medium text-gray-700">
+                {
+                    loading ? CircularProgressStyled() : <>{attempt.quizScore}</>
+                }
+                </dt>
+                <dd class="text-xs text-gray-600">Score</dd>
             </div>
 
             <div class="flex flex-col-reverse">
-                <dt onClick={() => newViewTab(attemptIndex)} class="text-sm font-medium text-gray-700 cursor-pointer underline hover:text-black">View Details</dt>
+                <dt onClick={() => newViewTab(attemptIndex)} class="text-sm font-medium text-gray-700 cursor-pointer underline hover:text-black">
+                {
+                    loading ? CircularProgressStyled() : <>View Details</>
+                }
+                </dt>
                 <dd class="text-xs text-gray-600">Results</dd>
             </div>
-
-            {/* <button className = "bg-[#bedbb8] p-4 rounded-lg transform transition-transform duration-300 hover:scale-105 hover:bg-[#a7cf99] cursor-pointer" >View</button> */}
         </dl>
     </div>
   )

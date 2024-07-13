@@ -9,12 +9,11 @@ import { CircularProgress } from '@mui/material';
 
 const QuizType = () => {
   const { attempts, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
-  const { loading, getAttempts } = useQuizDetails();
+  const { getAttempts, loading } = useQuizDetails();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (quizID && !hasFetchedAttempts) {
-      //console.log('Fetching attempts for quizID:', quizID);
       getAttempts({ quiz_id: quizID });
     }
   }, [quizID, hasFetchedAttempts, getAttempts]);
@@ -22,10 +21,6 @@ const QuizType = () => {
   const newQuizTab = () => {
     navigate('quizzz');
   };
-
-  if (loading) {
-    return <CircularProgress />;
-  }
 
   return (
     <section>
@@ -41,11 +36,22 @@ const QuizType = () => {
           </div>
 
           <h1 className="text-2xl font-semibold">Previous Attempts</h1>
-          <div className="flex flex-row flex-wrap gap-4">
-            {attempts && attempts.length > 0 ? attempts.map((attempt, attemptIndex) => (
-              <AttemptInfo key={attempt.id} attempt={attempt} attemptIndex={attemptIndex} />
-            )) : <div>No previous attempts</div>}
-          </div>
+
+          {
+            loading ? (
+              <div className="flex justify-center items-center">
+                <CircularProgress />
+              </div>
+            ) : attempts && attempts.length > 0 ? (
+              <div className="flex flex-row flex-wrap gap-4">
+                {attempts.map((attempt, attemptIndex) => (
+                  <AttemptInfo key={attempt.id} attempt={attempt} attemptIndex={attemptIndex} loading={loading}/>
+                ))}
+              </div>
+            ) : (
+              <div>No previous attempts</div>
+            )
+          }
         </div>
       </div>
     </section>

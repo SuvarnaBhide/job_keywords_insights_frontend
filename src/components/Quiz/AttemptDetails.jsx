@@ -56,14 +56,19 @@ const AttemptDetails = () => {
   const optionMap = new Map(currentQuestion.options.map(option => [option.id, option]));
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center w-full">
       <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
-        <div className="flex justify-between">
-          <h1>Attempt Details | Score: {quizScore}</h1>
-          <h1>
-            {index + 1} of {questions.length} questions
-          </h1>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <h1>Attempt Details</h1>
+          <div className="border-l-2 border-gray-400 h-6 mx-4"></div>
+          <h1>Score: </h1>
+          <h1 className='font-semibold text-gray-700 ml-2'> {quizScore}</h1>
         </div>
+        <h1>
+          {index + 1} of {questions.length} questions
+        </h1>
+      </div>
         <hr className="border-0 h-0.5 bg-[#707070]" />
         <h2 className="text-lg font-medium">
           {index + 1}. {currentQuestion.content}
