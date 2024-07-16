@@ -4,12 +4,18 @@ import { useSelector } from 'react-redux';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
 import QuizCard from './QuizCard';
 import { CircularProgress } from '@mui/material';
+import { setQuizID } from '../../app/redux/slices/quizSlice';
+import { useDispatch } from 'react-redux';
 
 const QuizzesArea = () => {
 
     const { quizzes } = useSelector((state) => state.quiz);
     const { loading } = useQuizDetails();
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(setQuizID(null));
+    }, [dispatch]);
 
     return (
         <div className='w-full'>

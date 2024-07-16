@@ -82,7 +82,7 @@ const Quizzz = () => {
   };
 
   const viewAttemptsClick = () => {
-    navigate('/quiz/quizzes/quizdetails/');
+    navigate('/quiz/quizdetails/');
   };
 
   const checkAnswer = (optionIndex) => {

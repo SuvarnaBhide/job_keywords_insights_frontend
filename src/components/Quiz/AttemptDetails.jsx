@@ -13,11 +13,28 @@ const AttemptDetails = () => {
   const { questions, attempts } = useSelector((state) => state.quiz);
   const { loading } = useQuizDetails();
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const attemptIndex = searchParams.get('attemptIndex');
+  // const location = useLocation();
+  // const searchParams = new URLSearchParams(location.search);
+  // const attemptIndex = searchParams.get('attemptIndex');
+
   const dispatch = useDispatch();
   const { quizScore } = useSelector((state) => state.quiz);
+
+  // Get the location object from the hook
+  const location = useLocation();
+
+  // Create an instance of URLSearchParams to parse the query string
+  const searchParams = new URLSearchParams(location.search);
+
+  // Extract the 'attemptIndex' parameter
+  let attemptIndex = searchParams.get('attemptIndex');
+
+  // Clean the attemptIndex value
+  attemptIndex = attemptIndex ? attemptIndex.replace(/\/$/, '') : '';
+
+  useEffect(() => {
+    console.log('attemptIndex:', attemptIndex);
+  }, [attemptIndex]);
 
   useEffect(() => {
     if (attemptIndex && attempts[attemptIndex]) {

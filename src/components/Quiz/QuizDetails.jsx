@@ -19,7 +19,7 @@ const QuizType = () => {
   }, [quizID, hasFetchedAttempts, getAttempts]);
 
   const newQuizTab = () => {
-    navigate('quizzz');
+    navigate('/quiz/quizzz');
   };
 
   return (
