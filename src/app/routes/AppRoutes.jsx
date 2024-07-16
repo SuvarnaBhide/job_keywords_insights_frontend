@@ -30,17 +30,20 @@ const AppRoutes = () => (
         <Route path="all_keywords/:keyword/file" element={<FileDetails />} />
       </Route>
 
-      <Route path="data_storage" element={<DataStorage />}>
+      {/* <Route path="data_storage" element={<DataStorage />}>
         <Route index element={<Navigate to="add_and_read_data" />} />
         <Route path="add_and_read_data" element={<AddReadData />} />
-      </Route>
+      </Route> */}
 
       <Route path="quiz" element={<Quiz />}>
+
         <Route index element={<Navigate to="quizzes" />} />
+        
         <Route path="quizzes" element={<QuizzesArea/>} />
-        <Route path="quizzes/quizdetails" element={<QuizDetails/>} />
-        <Route path="quizzes/quizdetails/quizzz" element={<Quizzz/>} />
-        <Route path="quizzes/quizdetails/attemptdetails" element={<AttemptDetails />} />
+        <Route path="quizdetails" element={<QuizDetails/>} />
+        <Route path="quizzz" element={<Quizzz/>} />
+        <Route path="attemptdetails" element={<AttemptDetails />} />
+
       </Route>
       
       {/* Fallback route for unmatched paths
