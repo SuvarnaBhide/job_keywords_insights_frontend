@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,14 +10,9 @@ const QuizCard = ({ quiz }) => {
   const dispatch = useDispatch();
   const { quizID } = useSelector((state) => state.quiz);
 
-  useEffect(() => {
-    if (quizID === quiz.id) {
-      navigate(`quizdetails/`);
-    }
-  }, [quizID, navigate, quiz.id]);
-
   const handleClick = () => {
     dispatch(setQuizID(quiz.id));
+    navigate(`/quiz/quizdetails`);
   };
 
   return (

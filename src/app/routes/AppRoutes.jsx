@@ -42,7 +42,7 @@ const AppRoutes = () => (
         <Route index element={<Navigate to="quizzes" />} />
         
         <Route path="quizzes" element={<QuizzesArea/>} />
-        <Route path="quizzes/quizdetails" element={<QuizDetails/>} />
+        <Route path="quizdetails" element={<QuizDetails/>} />
         <Route path="quizzes/quizzz" element={<Quizzz/>} />
 
         <Route path="attempts" element={<Attempts />} />
