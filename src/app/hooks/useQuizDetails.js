@@ -30,10 +30,10 @@ const useQuizDetails = () => {
       .catch(() => setLoading(false));
   }, [dispatch]);
 
-  const getAttempts = useCallback((payload) => {
+  const getAttempts = useCallback(() => {
     //console.log('Fetching attempts with payload:', payload);
     setLoading(true);
-    dispatch(getAttemptsAction(payload))
+    dispatch(getAttemptsAction())
       .unwrap()
       .then(() => setLoading(false))
       .catch(() => setLoading(false));

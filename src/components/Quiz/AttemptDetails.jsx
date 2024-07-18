@@ -10,31 +10,21 @@ import { setQuizScore } from '../../app/redux/slices/quizSlice';
 
 const AttemptDetails = () => {
   const [index, setIndex] = useState(0);
-  const { questions, attempts } = useSelector((state) => state.quiz);
-  const { loading } = useQuizDetails();
+  const { questions, attempts, hasFetchedQuestions } = useSelector((state) => state.quiz);
+  const { loading, getQuestions } = useQuizDetails();
 
-  // const location = useLocation();
-  // const searchParams = new URLSearchParams(location.search);
-  // const attemptIndex = searchParams.get('attemptIndex');
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const attemptIndex = searchParams.get('attemptIndex');
 
   const dispatch = useDispatch();
-  const { quizScore } = useSelector((state) => state.quiz);
-
-  // Get the location object from the hook
-  const location = useLocation();
-
-  // Create an instance of URLSearchParams to parse the query string
-  const searchParams = new URLSearchParams(location.search);
-
-  // Extract the 'attemptIndex' parameter
-  let attemptIndex = searchParams.get('attemptIndex');
-
-  // Clean the attemptIndex value
-  attemptIndex = attemptIndex ? attemptIndex.replace(/\/$/, '') : '';
+  const { quizScore, quizID,  } = useSelector((state) => state.quiz);
 
   useEffect(() => {
-    console.log('attemptIndex:', attemptIndex);
-  }, [attemptIndex]);
+    if (!hasFetchedQuestions) {
+      getQuestions({ quiz_id: attempts[attemptIndex].quiz_id });
+    }
+  }, [quizID, hasFetchedQuestions, getQuestions, attempts, attemptIndex]);
 
   useEffect(() => {
     if (attemptIndex && attempts[attemptIndex]) {

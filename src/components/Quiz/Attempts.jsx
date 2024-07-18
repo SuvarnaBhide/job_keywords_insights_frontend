@@ -4,21 +4,24 @@ import '../../styles/index.css';
 import '../../styles/QuizType.css';
 import AttemptInfo from './AttemptInfo';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
+import { setHasFetchedQuestions } from '../../app/redux/slices/quizSlice';
 
 const Attempts = () => {
   const { attempts, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
   const { getAttempts, loading } = useQuizDetails();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (quizID && !hasFetchedAttempts) {
-      getAttempts({ quiz_id: quizID });
-    }
-  }, [quizID, hasFetchedAttempts, getAttempts]);
+    dispatch(setHasFetchedQuestions(false));
 
+    if (!hasFetchedAttempts) {
+      getAttempts();
+    }
+  }, [hasFetchedAttempts, getAttempts, dispatch]);
 
   return (
     <section>
