@@ -12,7 +12,7 @@ const QuizCard = ({ quiz }) => {
 
   const handleClick = () => {
     dispatch(setQuizID(quiz.id));
-    navigate(`/quiz/quizdetails`);
+    navigate(`/quiz/${quiz.name}/quizdetails`);
   };
 
   return (

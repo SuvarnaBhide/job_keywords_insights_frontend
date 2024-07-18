@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 
 const QuizType = () => {
-  const { attempts, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
+  const { quizzes, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
   const { getAttempts, loading } = useQuizDetails();
   const navigate = useNavigate();
 
@@ -20,7 +20,11 @@ const QuizType = () => {
   }, [quizID, hasFetchedAttempts, getAttempts]);
 
   const newQuizTab = () => {
-    navigate('/quiz/quizzes/quizzz');
+
+    const quiz = quizzes.find(quiz => quiz.id === quizID);
+    const quizName = quiz ? quiz.name : null;
+
+    navigate(`/quiz/${quizName}/quizzz`);
   };
 
   return (
