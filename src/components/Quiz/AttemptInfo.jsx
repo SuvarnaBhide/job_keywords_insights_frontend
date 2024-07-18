@@ -12,7 +12,7 @@ const AttemptInfo = ({attempt, attemptIndex, loading}) => {
     const navigate = useNavigate();
 
     const newViewTab = (attemptIndex) => {
-        navigate(`/quiz/attemptdetails?attemptIndex=${attemptIndex}/`);
+        navigate(`/quiz/attempts/attemptdetails?attemptIndex=${attemptIndex}`);
     };
     
     const CircularProgressStyled = () => {

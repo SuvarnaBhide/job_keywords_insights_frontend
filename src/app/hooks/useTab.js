@@ -18,6 +18,9 @@ export const useTabs = () => {
     if (window?.location?.pathname.toLowerCase().includes('quizdetails')) {
       setCurrentTab('QuizDetails');
     }
+    if (window?.location?.pathname.toLowerCase().includes('attempts')) {
+        setCurrentTab('Attempts');
+    }
     if (window?.location?.pathname.toLowerCase().includes('attemptdetails')) {
         setCurrentTab('AttemptDetails');
     }

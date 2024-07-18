@@ -21,7 +21,7 @@ export default function CustomTabs(props) {
                 className={index === 0 ? 'py-2.5 pr-4' : ''}
                 key={tab.tabName}
                 value={tab.tabName}
-                label={tab.tabName}
+                label={tab.tabLabel}
                 // icon={currentTab === tab.tabName ? tab.icon : undefined}
                 // iconPosition={currentTab === tab.tabName ? 'start' : undefined}
               />

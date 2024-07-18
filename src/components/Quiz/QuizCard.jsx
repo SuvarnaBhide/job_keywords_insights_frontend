@@ -11,7 +11,7 @@ const QuizCard = ({ quiz }) => {
 
   useEffect(() => {
     if (quizID === quiz.id) {
-      navigate(`/quiz/quizdetails/`);
+      navigate(`quizdetails/`);
     }
   }, [quizID, navigate, quiz.id]);
 

@@ -13,6 +13,8 @@ import Quizzz from '../../components/Quiz/Quizzz.jsx';
 import QuizDetails from '../../components/Quiz/QuizDetails.jsx';
 import QuizzesArea from '../../components/Quiz/QuizzesArea.jsx';
 import AttemptDetails from '../../components/Quiz/AttemptDetails.jsx';
+import AttemptInfo from '../../components/Quiz/AttemptInfo.jsx';
+import Attempts from '../../components/Quiz/Attempts.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -40,9 +42,11 @@ const AppRoutes = () => (
         <Route index element={<Navigate to="quizzes" />} />
         
         <Route path="quizzes" element={<QuizzesArea/>} />
-        <Route path="quizdetails" element={<QuizDetails/>} />
-        <Route path="quizzz" element={<Quizzz/>} />
-        <Route path="attemptdetails" element={<AttemptDetails />} />
+        <Route path="quizzes/quizdetails" element={<QuizDetails/>} />
+        <Route path="quizzes/quizzz" element={<Quizzz/>} />
+
+        <Route path="attempts" element={<Attempts />} />
+        <Route path="attempts/attemptdetails" element={<AttemptDetails />} />
 
       </Route>
       
