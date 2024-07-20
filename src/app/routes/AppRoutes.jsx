@@ -15,6 +15,8 @@ import QuizzesArea from '../../components/Quiz/QuizzesArea.jsx';
 import AttemptDetails from '../../components/Quiz/AttemptDetails.jsx';
 import AttemptInfo from '../../components/Quiz/AttemptInfo.jsx';
 import Attempts from '../../components/Quiz/Attempts.jsx';
+import Payments from '../../pages/Payments.jsx';
+import Settings from '../../pages/Settings.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -49,6 +51,9 @@ const AppRoutes = () => (
         <Route path="attempts/attemptdetails" element={<AttemptDetails />} />
 
       </Route>
+
+      <Route path="payments" element={<Payments />} />
+      <Route path="settings" element={<Settings />} />
       
       {/* Fallback route for unmatched paths
       <Route path="*" element={<Navigate to="/" />} /> */}

@@ -53,3 +53,82 @@ export const keywordColumnData = [
         }
     },
 ];
+
+export const allQuizzesColumnData = [
+    {
+        name: "Quiz Name",
+        options: {
+            customBodyRender: (value) => {
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
+                        <div className="text-[14px] font-semibold">
+                            <p>{value}</p>
+                        </div>
+                    </div>
+                );
+            }
+        }
+    },
+    {
+        name: "Details",
+        options: {
+            customBodyRender: (value) => {
+                return (
+                    <div>
+                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                            <strong>{value}</strong>
+                        </p>
+                    </div>
+                )
+            }
+        }
+    },
+];
+
+export const allAttemptsColumnData = [
+    {
+        name: "Date & Time",
+        options: {
+            customBodyRender: (value) => {
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
+                        <div className="text-[14px]">
+                            <p>{value}</p>
+                        </div>
+                    </div>
+                );
+            }
+        }
+    },
+    {
+        name: 'Quiz Name',
+        options: {
+            customBodyRender: (value) => {
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
+                        <div className="text-[14px] font-semibold">
+                            <p>{value}</p>
+                        </div>
+                    </div>
+                );
+            }
+        }
+    },
+    {
+        name: 'Score'
+    },
+    {
+        name: "Details",
+        options: {
+            customBodyRender: (value) => {
+                return (
+                    <div>
+                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                            <strong>{value}</strong>
+                        </p>
+                    </div>
+                )
+            }
+        }
+    },
+];

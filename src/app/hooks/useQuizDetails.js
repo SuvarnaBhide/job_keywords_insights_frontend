@@ -12,6 +12,8 @@ const useQuizDetails = () => {
   const dispatch = useDispatch();
   const { quizzes, questions, attempts, quizID, hasFetchedQuizzes, hasFetchedQuestions, hasFetchedAttempts } = useSelector((state) => state.quiz);
   const [loading, setLoading] = useState(false);
+  const [quizzesArray, setQuizzesArray] = useState([]);
+  const [attemptsArray, setAttemptsArray] = useState([]);
 
   const getQuizzes = useCallback(() => {
     setLoading(true);
@@ -47,10 +49,12 @@ const useQuizDetails = () => {
 
   useEffect(() => {
     if (!hasFetchedQuizzes) {
-      //console.log('Fetching quizzes');
       getQuizzes();
+    } else {
+      const data = quizzes.map(quiz => [quiz.name, 'View Details']); 
+      setQuizzesArray(data);
     }
-  }, [hasFetchedQuizzes, getQuizzes]);
+  }, [hasFetchedQuizzes, getQuizzes, quizzes]);
 
   // useEffect(() => {
   //   console.log('quizID inside questions waala useEffect:', quizID);
@@ -69,7 +73,7 @@ const useQuizDetails = () => {
   // }, [quizID, hasFetchedAttempts, getAttempts]);
 
   return {
-    loading, saveAttempt, getAttempts, getQuestions
+    loading, saveAttempt, getAttempts, getQuestions, quizzesArray, attemptsArray, setAttemptsArray
   };
 };
 
