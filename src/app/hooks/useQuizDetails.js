@@ -42,9 +42,12 @@ const useQuizDetails = () => {
   }, [dispatch]);
 
   const saveAttempt = (payload) => {
-    return dispatch(saveAttemptAction(payload))
+    setLoading(true);
+    dispatch(saveAttemptAction(payload))
       .unwrap()
-      .then((response) => response);
+      .then((response) => response)
+      .catch((error) => console.error('error saving response: ', error))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {

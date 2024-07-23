@@ -1,10 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { TabsContext } from '../context/TabsContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const useTabs = () => {
   const { currentTab, setCurrentTab } = useContext(TabsContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSetCurrentTab = (tab) => {
     navigate(tab.toLowerCase(), { replace: true });
@@ -12,23 +13,15 @@ export const useTabs = () => {
   };
 
   useEffect(() => {
-    if (window?.location?.pathname.toLowerCase().includes('quizzes')) {
+    const path = location.pathname.toLowerCase();
+    if (path.includes('quizzes') || path.includes('quizdetails') || path.includes('quizzz')) {
       setCurrentTab('Quizzes');
+    } else if (path.includes('attempts')) {
+      setCurrentTab('Attempts');
+    } else if (path.includes('attemptdetails')) {
+      setCurrentTab('Attempt');
     }
-    if (window?.location?.pathname.toLowerCase().includes('quizdetails')) {
-      setCurrentTab('QuizDetails');
-    }
-    if (window?.location?.pathname.toLowerCase().includes('attempts')) {
-        setCurrentTab('Attempts');
-    }
-    if (window?.location?.pathname.toLowerCase().includes('attemptdetails')) {
-        setCurrentTab('AttemptDetails');
-    }
-    if (window?.location?.pathname.toLowerCase().includes('quizzz')) {
-        setCurrentTab('Quizzz');
-    }
-
-  }, [setCurrentTab]);
+  }, [location, setCurrentTab]);
 
   if (!TabsContext) {
     throw new Error('useTabs should be used inside TabsProvider');
