@@ -13,6 +13,10 @@ import Quizzz from '../../components/Quiz/Quizzz.jsx';
 import QuizDetails from '../../components/Quiz/QuizDetails.jsx';
 import QuizzesArea from '../../components/Quiz/QuizzesArea.jsx';
 import AttemptDetails from '../../components/Quiz/AttemptDetails.jsx';
+import AttemptInfo from '../../components/Quiz/AttemptInfo.jsx';
+import Attempts from '../../components/Quiz/Attempts.jsx';
+import Payments from '../../pages/Payments.jsx';
+import Settings from '../../pages/Settings.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -30,18 +34,26 @@ const AppRoutes = () => (
         <Route path="all_keywords/:keyword/file" element={<FileDetails />} />
       </Route>
 
-      <Route path="data_storage" element={<DataStorage />}>
+      {/* <Route path="data_storage" element={<DataStorage />}>
         <Route index element={<Navigate to="add_and_read_data" />} />
         <Route path="add_and_read_data" element={<AddReadData />} />
-      </Route>
+      </Route> */}
 
       <Route path="quiz" element={<Quiz />}>
+
         <Route index element={<Navigate to="quizzes" />} />
+        
         <Route path="quizzes" element={<QuizzesArea/>} />
-        <Route path="quizzes/quizdetails" element={<QuizDetails/>} />
-        <Route path="quizzes/quizdetails/quizzz" element={<Quizzz/>} />
-        <Route path="quizzes/quizdetails/attemptdetails" element={<AttemptDetails />} />
+        <Route path=":quiz/quizdetails" element={<QuizDetails/>} />
+        <Route path=":quiz/quizzz" element={<Quizzz/>} />
+
+        <Route path="attempts" element={<Attempts />} />
+        <Route path="attempts/attemptdetails" element={<AttemptDetails />} />
+
       </Route>
+
+      <Route path="payments" element={<Payments />} />
+      <Route path="settings" element={<Settings />} />
       
       {/* Fallback route for unmatched paths
       <Route path="*" element={<Navigate to="/" />} /> */}

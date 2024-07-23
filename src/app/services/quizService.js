@@ -50,14 +50,9 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
     'quiz/getAttempts',
     async (payload, thunkAPI) => {
       let result = { success: false };
-      if (!payload || !payload.quiz_id || payload.quiz_id < 1) {
-        result.success = false;
-        result.data = [];
-        return result;
-      }
       try {
         const endpoint = `attempts/1`;
-        result = await callPostApi(endpoint, payload);
+        result = await callGetApi(endpoint);
         if (!result.success) throw new Error(result.error);
   
         return result.data;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React , { useEffect } from 'react';
 import '../../styles/index.css';
 import '../../styles/QuizType.css';
@@ -8,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 
 const QuizType = () => {
-  const { attempts, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
+  const { quizzes, quizID, hasFetchedAttempts } = useSelector((state) => state.quiz);
   const { getAttempts, loading } = useQuizDetails();
   const navigate = useNavigate();
 
@@ -19,7 +20,11 @@ const QuizType = () => {
   }, [quizID, hasFetchedAttempts, getAttempts]);
 
   const newQuizTab = () => {
-    navigate('quizzz');
+
+    const quiz = quizzes.find(quiz => quiz.id === quizID);
+    const quizName = quiz ? quiz.name : null;
+
+    navigate(`/quiz/${quizName}/quizzz`);
   };
 
   return (
@@ -34,24 +39,6 @@ const QuizType = () => {
               Start A New Quiz
             </div>
           </div>
-
-          <h1 className="text-2xl font-semibold">Previous Attempts</h1>
-
-          {
-            loading ? (
-              <div className="flex justify-center items-center">
-                <CircularProgress />
-              </div>
-            ) : attempts && attempts.length > 0 ? (
-              <div className="flex flex-row flex-wrap gap-4">
-                {attempts.map((attempt, attemptIndex) => (
-                  <AttemptInfo key={attempt.id} attempt={attempt} attemptIndex={attemptIndex} loading={loading}/>
-                ))}
-              </div>
-            ) : (
-              <div>No previous attempts</div>
-            )
-          }
         </div>
       </div>
     </section>

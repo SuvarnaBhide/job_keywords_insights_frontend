@@ -16,12 +16,11 @@ const shuffleArray = (array) => {
 };
 
 const Quizzz = () => {
-  const [index, setIndex] = useState(0);
-  const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]); // Track selected options
   const [shuffledQuestions, setShuffledQuestions] = useState([]); // Store shuffled questions
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); // Track if all questions are answered
   const { questions, quizID, hasFetchedQuestions } = useSelector((state) => state.quiz);
   const { loading, saveAttempt, getQuestions } = useQuizDetails();
   const navigate = useNavigate();
@@ -44,6 +43,14 @@ const Quizzz = () => {
     }
   }, [questions]);
 
+  useEffect(() => {
+    // Check if all questions are answered
+    const allAnswered = shuffledQuestions.every((question) => 
+      selectedOptions.some((option) => option.question_id === question.id)
+    );
+    setAllQuestionsAnswered(allAnswered);
+  }, [selectedOptions, shuffledQuestions]);
+
   const submitQuiz = async () => {
     const details = shuffledQuestions.map((question) => {
       const selectedOption = selectedOptions.find(option => option.question_id === question.id);
@@ -63,50 +70,26 @@ const Quizzz = () => {
 
     try {
       dispatch(setHasFetchedAttempts(false));
-      saveAttempt(payload);
+      await saveAttempt(payload);
+      setResult(true);
     } catch (error) {
       console.error('Error saving attempt:', error);
     }
   };
 
-  const handleNextClick = () => {
-    if (lock) {
-      if (index === shuffledQuestions.length - 1) {
-        setResult(true);
-        submitQuiz(); // Save the attempt when quiz is finished
-        return;
-      }
-      setIndex((prevIndex) => prevIndex + 1);
-      setLock(false);
-    }
-  };
-
-  const viewAttemptsClick = () => {
-    navigate('/quiz/quizzes/quizdetails/');
-  };
-
-  const checkAnswer = (optionIndex) => {
-    if (!lock) {
-      const selectedOptionId = shuffledQuestions[index].options[optionIndex].id;
-      const questionId = shuffledQuestions[index].id;
+  const checkAnswer = (optionIndex, questionIndex) => {
+    if (!selectedOptions.find(option => option.question_id === shuffledQuestions[questionIndex].id)) {
+      const selectedOptionId = shuffledQuestions[questionIndex].options[optionIndex].id;
+      const questionId = shuffledQuestions[questionIndex].id;
 
       // Update the selected option for the current question
-      setSelectedOptions((prevSelectedOptions) => {
-        const existingOptionIndex = prevSelectedOptions.findIndex(option => option.question_id === questionId);
-        if (existingOptionIndex > -1) {
-          // Update existing entry
-          const updatedOptions = [...prevSelectedOptions];
-          updatedOptions[existingOptionIndex] = { question_id: questionId, option_id: selectedOptionId };
-          return updatedOptions;
-        } else {
-          // Add new entry
-          return [...prevSelectedOptions, { question_id: questionId, option_id: selectedOptionId }];
-        }
-      });
+      setSelectedOptions((prevSelectedOptions) => [
+        ...prevSelectedOptions,
+        { question_id: questionId, option_id: selectedOptionId }
+      ]);
 
-      const isCorrect = shuffledQuestions[index].options[optionIndex].is_correct;
+      const isCorrect = shuffledQuestions[questionIndex].options[optionIndex].is_correct;
       if (isCorrect) setScore((prevScore) => prevScore + 1);
-      setLock(true);
     }
   };
 
@@ -127,11 +110,8 @@ const Quizzz = () => {
           </h2>
           <div className="flex justify-center mt-4">
             <button
-              onClick={viewAttemptsClick}
-              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-60 ${
-                !lock ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={!lock}
+              onClick={() => navigate('/quiz/attempts')}
+              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-60`}
             >
               View Previous Attempts
             </button>
@@ -142,48 +122,48 @@ const Quizzz = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-full">
-      <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
-        <div className="flex justify-between">
-          <h1>Quiz App</h1>
-          <h1>
-            {index + 1} of {shuffledQuestions.length} questions
-          </h1>
-        </div>
+    <div className="flex justify-center items-center w-full h-full">
+      <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll">
+        <h1>Quiz App</h1>
         <hr className="border-0 h-0.5 bg-[#707070]" />
-        <h2 className="text-lg font-medium">
-          {index + 1}. {shuffledQuestions[index].content}
-        </h2>
-        <ul>
-          {shuffledQuestions[index].options.map((option, optionIndex) => {
-            let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
-            if (lock) {
-              if (option.id === selectedOptions.find(option => option.question_id === shuffledQuestions[index].id)?.option_id) {
-                className += option.is_correct ? ' correct' : ' wrong';
-              } else if (option.is_correct) {
-                className += ' correct';
-              }
-            }
-            return (
-              <li
-                key={option.id}
-                onClick={() => checkAnswer(optionIndex)}
-                className={className}
-              >
-                {option.content}
-              </li>
-            );
-          })}
-        </ul>
+        {shuffledQuestions.map((question, questionIndex) => (
+          <div key={question.id} className="mb-10">
+            <h2 className="text-lg font-medium">
+              {questionIndex + 1}. {question.content}
+            </h2>
+            <ul>
+              {question.options.map((option, optionIndex) => {
+                let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
+                const selectedOption = selectedOptions.find(option => option.question_id === question.id);
+
+                if (selectedOption) {
+                  if (option.id === selectedOption.option_id) {
+                    className += option.is_correct ? ' correct' : ' wrong';
+                  } else if (option.is_correct) {
+                    className += ' correct';
+                  }
+                }
+
+                return (
+                  <li
+                    key={option.id}
+                    onClick={() => checkAnswer(optionIndex, questionIndex)}
+                    className={className}
+                  >
+                    {option.content}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
         <div className="flex justify-center mt-4">
           <button
-            onClick={handleNextClick}
-            className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-24 ${
-              !lock ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={!lock}
+            onClick={() => submitQuiz()}
+            className={`bg-[#1890D4] hover:bg-[#10608e] text-white font-semibold py-2 px-4 rounded text-[12px] ${!allQuestionsAnswered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#10608e]'}`}
+            disabled={!allQuestionsAnswered} // Disable button if not all questions are answered
           >
-            Next
+            Submit
           </button>
         </div>
       </div>
