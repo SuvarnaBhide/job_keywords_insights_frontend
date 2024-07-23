@@ -20,6 +20,7 @@ const Quizzz = () => {
   const [result, setResult] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]); // Track selected options
   const [shuffledQuestions, setShuffledQuestions] = useState([]); // Store shuffled questions
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); // Track if all questions are answered
   const { questions, quizID, hasFetchedQuestions } = useSelector((state) => state.quiz);
   const { loading, saveAttempt, getQuestions } = useQuizDetails();
   const navigate = useNavigate();
@@ -42,6 +43,14 @@ const Quizzz = () => {
     }
   }, [questions]);
 
+  useEffect(() => {
+    // Check if all questions are answered
+    const allAnswered = shuffledQuestions.every((question) => 
+      selectedOptions.some((option) => option.question_id === question.id)
+    );
+    setAllQuestionsAnswered(allAnswered);
+  }, [selectedOptions, shuffledQuestions]);
+
   const submitQuiz = async () => {
     const details = shuffledQuestions.map((question) => {
       const selectedOption = selectedOptions.find(option => option.question_id === question.id);
@@ -52,14 +61,6 @@ const Quizzz = () => {
         order: question.options.map(option => option.id) // Save the shuffled order of option IDs
       };
     });
-
-    // Check if all questions are answered
-    const allAnswered = details.every(detail => detail.option_id !== null);
-
-    if (!allAnswered) {
-      alert('Please answer all the questions before submitting.');
-      return;
-    }
 
     const payload = {
       user_id: 1,
@@ -159,7 +160,8 @@ const Quizzz = () => {
         <div className="flex justify-center mt-4">
           <button
             onClick={() => submitQuiz()}
-            className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-24`}
+            className={`bg-[#1890D4] hover:bg-[#10608e] text-white font-semibold py-2 px-4 rounded text-[12px] ${!allQuestionsAnswered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#10608e]'}`}
+            disabled={!allQuestionsAnswered} // Disable button if not all questions are answered
           >
             Submit
           </button>
