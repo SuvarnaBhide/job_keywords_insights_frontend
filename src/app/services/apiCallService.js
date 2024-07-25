@@ -1,5 +1,8 @@
+/* This file is responsible for making API calls to external endpoints and handling the responses */
+
 import axiosInstance from '../axios/axios';
 
+// API call headers
 const headers = {
   Authorization: localStorage.getItem('accessToken') || ''
 };

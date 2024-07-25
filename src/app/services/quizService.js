@@ -5,6 +5,7 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
 
 // NOTE: ALL actions return result object which do contain success and error / data keys
 
+  // get list of quizzes from the database
   export const getQuizzesAction = createAsyncThunk(
     'quiz/getQuizzes',
     async (payload, thunkAPI) => {
@@ -23,6 +24,7 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
     }
   );
 
+  // get list of questions as per quiz_id
   export const getQuestionsAction = createAsyncThunk(
     'quiz/getQuestions',
     async (payload, thunkAPI) => {
@@ -46,6 +48,7 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
     }
   );
 
+  // get list of attempts (asumption made: there is only one user for this application)
   export const getAttemptsAction = createAsyncThunk(
     'quiz/getAttempts',
     async (payload, thunkAPI) => {
@@ -64,17 +67,16 @@ import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallSer
     }
   );
 
+  // save a user's quiz attempt
   export const saveAttemptAction = createAsyncThunk(
     'quiz/saveAttempt',
     async (payload, thunkAPI) => {
       let result = { success: false };
       try {
         const endpoint = `attempts`;
-        //console.log('Saving attempt with payload:', payload);
         result = await callPostApi(endpoint, payload);
         if (!result.success) throw new Error(result.error);
         
-        //console.log('Attempt saved successfully, dispatching getAttemptsAction');
         await thunkAPI.dispatch(getAttemptsAction({ quiz_id: payload.quiz_id }));
         
         return result;

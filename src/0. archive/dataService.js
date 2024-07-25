@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { callDeleteApi, callGetApi, callPostApi, callPutApi } from './apiCallService';
+import { callDeleteApi, callGetApi, callPostApi, callPutApi } from '../app/services/apiCallService';
 
 // NOTE: ALL actions return result object which do contain success and error / data keys
 
