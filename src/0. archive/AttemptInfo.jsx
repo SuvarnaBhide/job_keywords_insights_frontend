@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import '../../styles/index.css';
-import '../../styles/QuizType.css';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as CodeIcon } from '../../assets/code_icon.svg';
 import { CircularProgress } from '@mui/material';

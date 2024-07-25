@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import '../../../styles/QuizDetailsDialog.css';
+import '../../../styles/Dialog.css';
 import { CircularProgress, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuizID } from '../../../app/redux/slices/quizSlice';

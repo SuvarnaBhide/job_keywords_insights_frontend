@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import '../../styles/index.css';
-import '../../styles/Quizzz.css';
+import '../../styles/QuizLive.css';
 import { CircularProgress } from '@mui/material';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
 import { setQuizScore } from '../../app/redux/slices/quizSlice';

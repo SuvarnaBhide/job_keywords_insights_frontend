@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React , { useEffect, useState } from 'react';
 import '../../styles/index.css';
-import '../../styles/QuizType.css';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

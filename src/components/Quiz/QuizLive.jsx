@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/index.css';
-import '../../styles/Quizzz.css';
+import '../../styles/QuizLive.css';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
 import { CircularProgress } from '@mui/material';
 import { setHasFetchedAttempts } from '../../app/redux/slices/quizSlice';
