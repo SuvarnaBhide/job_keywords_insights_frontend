@@ -12,7 +12,6 @@ import Quizzz from '../../components/Quiz/Quizzz.jsx';
 import QuizDetails from '../../components/Quiz/QuizDetails.jsx';
 import QuizzesArea from '../../components/Quiz/QuizzesArea.jsx';
 import AttemptDetails from '../../components/Quiz/AttemptDetails.jsx';
-import AttemptInfo from '../../components/Quiz/AttemptInfo.jsx';
 import Attempts from '../../components/Quiz/Attempts.jsx';
 import Payments from '../../pages/Payments.jsx';
 import Settings from '../../pages/Settings.jsx';
@@ -33,10 +32,11 @@ const AppRoutes = () => (
         <Route path="all_keywords/:keyword/file" element={<FileDetails />} />
       </Route>
 
+      {/* Quiz routes */}
       <Route path="quiz" element={<Quiz />}>
 
         <Route index element={<Navigate to="quizzes" />} />
-        
+ 
         <Route path="quizzes" element={<QuizzesArea/>} />
         <Route path=":quiz/quizdetails" element={<QuizDetails/>} />
         <Route path=":quiz/quizzz" element={<Quizzz/>} />
@@ -49,8 +49,8 @@ const AppRoutes = () => (
       <Route path="payments" element={<Payments />} />
       <Route path="settings" element={<Settings />} />
       
-      {/* Fallback route for unmatched paths
-      <Route path="*" element={<Navigate to="/" />} /> */}
+      {/* Fallback route for unmatched paths */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Route>
   </Routes>
 );
