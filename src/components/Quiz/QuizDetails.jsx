@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomDialog from '../common/Dialogs/CustomDialog';
 import QuizDetailsDialog from '../common/Dialogs/QuizDetailsDialog';
 
-const QuizzesArea = () => {
+const QuizDetails = () => {
   const { quizzes, quizID } = useSelector((state) => state.quiz);
   const { loading, quizzesArray } = useQuizDetails();
   const dispatch = useDispatch();
@@ -95,4 +95,4 @@ const columnsWithClickHandling = allQuizzesColumnData.map((column) => ({
   );
 };
 
-export default QuizzesArea;
+export default QuizDetails;
