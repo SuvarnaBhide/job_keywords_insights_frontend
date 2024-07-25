@@ -24,8 +24,10 @@ const Attempts = () => {
   const [attemptIndex, setAttemptIndex] = useState(null);
 
   useEffect(() => {
+    // reset questions flag, everytime the component is rendered
     dispatch(setHasFetchedQuestions(false));
 
+    // fetch attempts and map to attemptsArray
     if (!hasFetchedAttempts) {
       getAttempts();
     } else {
@@ -35,6 +37,7 @@ const Attempts = () => {
   }, [hasFetchedAttempts, getAttempts, dispatch, attempts, setAttemptsArray]);
 
   const handleCellClick = (attemptIndex) => {
+    // open attempt details dialog
     setAttemptIndex(attemptIndex);
     setCurrentAttempt(attempts[attemptIndex]);
     setOpenDialog(true);
@@ -65,7 +68,7 @@ const Attempts = () => {
     tableBodyHeight: '350px',
     tableBodyMaxHeight: '350px',
   };
-
+  
   return (
     <section>
       <div className="max-w-screen-xl px-4 sm:px-6 lg:px-8 lg">
@@ -90,7 +93,8 @@ const Attempts = () => {
               </div>
             ) 
           }
-
+          
+          {/* Dialog displaying quiz details, only opens when openDialog is true */}
           <CustomDialog
             openDialog={openDialog}
             handleCloseDialog={() => setOpenDialog(false)}

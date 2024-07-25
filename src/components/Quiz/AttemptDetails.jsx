@@ -12,6 +12,7 @@ const AttemptDetails = () => {
   const { questions, attempts, hasFetchedQuestions } = useSelector((state) => state.quiz);
   const { loading, getQuestions } = useQuizDetails();
 
+  // get the attempt index from the URL
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const attemptIndex = searchParams.get('attemptIndex');
@@ -20,12 +21,14 @@ const AttemptDetails = () => {
   const { quizScore, quizID } = useSelector((state) => state.quiz);
 
   useEffect(() => {
+    // fetch questions for the current attempt
     if (!hasFetchedQuestions) {
       getQuestions({ quiz_id: attempts[attemptIndex].quiz_id });
     }
   }, [quizID, hasFetchedQuestions, getQuestions, attempts, attemptIndex]);
 
   useEffect(() => {
+    // set the quiz score for the current attempt
     if (attemptIndex && attempts[attemptIndex]) {
       dispatch(setQuizScore(attempts[attemptIndex].quizScore));
     }
@@ -58,7 +61,9 @@ const AttemptDetails = () => {
           </h1>
         </div>
         <hr className="border-0 h-0.5 bg-[#707070]" />
+        {/* Display questions and their options*/}
         {questions.map((question, questionIndex) => {
+          
           const responseForCurrentQuestion = attempt.responses.find(response => response.question_id === question.id);
           const optionOrder = responseForCurrentQuestion ? responseForCurrentQuestion.option_order : [];
 

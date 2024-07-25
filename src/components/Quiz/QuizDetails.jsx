@@ -22,10 +22,12 @@ const QuizDetails = () => {
   const [currentQuiz, setCurrentQuiz] = useState(null);
 
   useEffect(() => {
+    //reset quiz_id everytime the component mounts
     dispatch(setQuizID(null));
   }, [dispatch]);
 
   const handleCellClick = (quizName) => {
+    // Open the quiz details dialog
     const quiz = quizzes.find(quiz => quiz.name === quizName);
     setCurrentQuiz(quiz);
     setOpenDialog(true);
@@ -76,7 +78,8 @@ const columnsWithClickHandling = allQuizzesColumnData.map((column) => ({
           </ThemeProvider>
         </div>
       )}
-
+      
+      {/* Attempt details dialog, only opens when openDialog is true */}
       <CustomDialog
         openDialog={openDialog}
         handleCloseDialog={() => setOpenDialog(false)}

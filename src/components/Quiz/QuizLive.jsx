@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -27,13 +28,14 @@ const QuizLive = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Fetch questions for the current quiz
     if (quizID && !hasFetchedQuestions) {
-      console.log('Fetching questions for quizID:', quizID);
       getQuestions({ quiz_id: quizID });
     }
   }, [quizID, hasFetchedQuestions, getQuestions]);
 
   useEffect(() => {
+    // Shuffle questions
     if (questions.length > 0) {
       const shuffled = questions.map((question) => ({
         ...question,
@@ -52,6 +54,9 @@ const QuizLive = () => {
   }, [selectedOptions, shuffledQuestions]);
 
   const submitQuiz = async () => {
+
+    // save the shuffled order of options and selected option in details { question_id, option_id, content, order }
+
     const details = shuffledQuestions.map((question) => {
       const selectedOption = selectedOptions.find(option => option.question_id === question.id);
       return {
@@ -62,15 +67,19 @@ const QuizLive = () => {
       };
     });
 
+    //add details to payload
+
     const payload = {
       user_id: 1,
       quiz_id: quizID,
       details
     };
 
+    // save attempt
+
     try {
       dispatch(setHasFetchedAttempts(false));
-      await saveAttempt(payload);
+      saveAttempt(payload);
       setResult(true);
     } catch (error) {
       console.error('Error saving attempt:', error);
@@ -78,6 +87,9 @@ const QuizLive = () => {
   };
 
   const checkAnswer = (optionIndex, questionIndex) => {
+
+    // if option is not selected, select it
+
     if (!selectedOptions.find(option => option.question_id === shuffledQuestions[questionIndex].id)) {
       const selectedOptionId = shuffledQuestions[questionIndex].options[optionIndex].id;
       const questionId = shuffledQuestions[questionIndex].id;
@@ -88,6 +100,7 @@ const QuizLive = () => {
         { question_id: questionId, option_id: selectedOptionId }
       ]);
 
+      // Check if the selected option is correct
       const isCorrect = shuffledQuestions[questionIndex].options[optionIndex].is_correct;
       if (isCorrect) setScore((prevScore) => prevScore + 1);
     }
@@ -126,16 +139,19 @@ const QuizLive = () => {
       <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll">
         <h1>Quiz App</h1>
         <hr className="border-0 h-0.5 bg-[#707070]" />
+        {/* Display the questions */}
         {shuffledQuestions.map((question, questionIndex) => (
           <div key={question.id} className="mb-10">
             <h2 className="text-lg font-medium">
               {questionIndex + 1}. {question.content}
             </h2>
             <ul>
+              {/* Display the options */}
               {question.options.map((option, optionIndex) => {
                 let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
                 const selectedOption = selectedOptions.find(option => option.question_id === question.id);
-
+                
+                {/* Highlight the selected option */}
                 if (selectedOption) {
                   if (option.id === selectedOption.option_id) {
                     className += option.is_correct ? ' correct' : ' wrong';
@@ -143,7 +159,8 @@ const QuizLive = () => {
                     className += ' correct';
                   }
                 }
-
+                
+                {/* For each question, display the option */}
                 return (
                   <li
                     key={option.id}
