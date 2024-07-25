@@ -6,8 +6,7 @@ import AllKeywordsOccurrences from '../../components/Keywords/AllKeywordsOccurre
 import TrendingJobKeywords from '../../pages/TrendingJobKeywords.jsx';
 import KeywordDetails from '../../components/Keywords/KeywordDetails.jsx';
 import FileDetails from '../../components/Keywords/FileDetails.jsx';
-import DataStorage from '../../pages/DataStorage.jsx';
-import AddReadData from '../../components/Data Storage/AddReadData.jsx';
+
 import Quiz from '../../pages/Quiz.jsx';
 import Quizzz from '../../components/Quiz/Quizzz.jsx';
 import QuizDetails from '../../components/Quiz/QuizDetails.jsx';
@@ -33,11 +32,6 @@ const AppRoutes = () => (
         <Route path="all_keywords/:keyword" element={<KeywordDetails />} />
         <Route path="all_keywords/:keyword/file" element={<FileDetails />} />
       </Route>
-
-      {/* <Route path="data_storage" element={<DataStorage />}>
-        <Route index element={<Navigate to="add_and_read_data" />} />
-        <Route path="add_and_read_data" element={<AddReadData />} />
-      </Route> */}
 
       <Route path="quiz" element={<Quiz />}>
 
