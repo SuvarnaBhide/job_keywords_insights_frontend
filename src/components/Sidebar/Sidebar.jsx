@@ -20,24 +20,26 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Menu items for the sidebar containing the labels, logos and links to different pages
   const Menus = [
     { title: "Job Keywords", src: keywordsLogo, link: "/trending_job_keywords/all_keywords" },
-    // { title: "Data Storage", src: controlLogo, link: "/data_storage/" },
     { title: "Quiz", src: quizLogo, link: "/quiz/", gap: true },
     { title: "Payments", src: paymentsLogo, link: "/payments/"},
     { title: "Settings", src: settingsLogo, link: "/settings/" },
   ];
 
   const resetData = (link) => {
-    dispatch(setKeywordDetails([]));
-    dispatch(setKeyword(''));
-    dispatch(setQuizScore('0/0'));
 
-    // Reset quizID only if the 'Quiz' menu item is clicked
+    // Reset keyword-related data only if the 'Job Keywords' menu item is clicked
+    if(link === "/trending_job_keywords/all_keywords") {
+      dispatch(setKeywordDetails([]));
+      dispatch(setKeyword(''));
+    }
+
+    // Reset quiz-related data only if the 'Quiz' menu item is clicked
     if (link === "/quiz/") {
       dispatch(setQuizID(null));
-      // dispatch(setHasFetchedAttempts(false));
-      // dispatch(setHasFetchedQuestions(false));
+      dispatch(setQuizScore('0/0'));
     }
   };
 
@@ -53,22 +55,6 @@ const Sidebar = () => {
           className={`absolute cursor-pointer right-5 top-9`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex gap-x-4 items-center">
-          {/* <img
-            alt="logo"
-            src={mainLogo}
-            className={`cursor-pointer duration-500 opacity-70 ${
-              open && "rotate-[360deg]"
-            }`}
-          /> */}
-          {/* <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
-          >
-            Job Insights
-          </h1> */}
-        </div>
         <ul className="pt-8 mt-4">
           {Menus.map((Menu, index) => (
             <React.Fragment key={index}>

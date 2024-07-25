@@ -1,18 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import '../../../styles/QuizDetailsDialog.css';
+import '../../../styles/Dialog.css';
 import { CircularProgress, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setQuizID } from '../../../app/redux/slices/quizSlice';
 import { useNavigate } from 'react-router-dom';
 
 const AttemptDetailsRow = ({ label, value }) => {
   return (
     <Stack flexDirection="row" className="detailsdialog__row">
-      <div className="detailsdialog__row__key text-[15px]">
+      <div className="detailsdialog__row__key">
         {label}
       </div>
-      <div className="detailsdialog__row__value text-[15px]">
+      <div className="detailsdialog__row__value">
         {value}
       </div>
     </Stack>
@@ -30,7 +29,7 @@ const AttemptDetailsDialog = ({ attemptDetails, loading, attemptIndex }) => {
 
   return (
     <div className="detailsdialog">
-      <div className="detailsdialog__title text-[20px]">
+      <div className="detailsdialog__title">
         Attempt Details
       </div>
       {loading ? (
@@ -41,12 +40,6 @@ const AttemptDetailsDialog = ({ attemptDetails, loading, attemptIndex }) => {
         <Stack flexDirection="column" className="detailsdialog__content">
           <AttemptDetailsRow label="Quiz Name" value={attemptDetails.quizName} />
           <AttemptDetailsRow label="Score" value={attemptDetails.quizScore} />
-          {/* <AttemptDetailsRow label="Total Questions" value={quizDetails.totalQuestions} />
-          <AttemptDetailsRow label="Total Time" value={quizDetails.totalTime} />
-          <AttemptDetailsRow
-            label="Max Score"
-            value={quizDetails.maxScore}
-          /> */}
           <div className='flex justify-center items-center mt-5'>
             <button
               onClick={handleButtonClick}

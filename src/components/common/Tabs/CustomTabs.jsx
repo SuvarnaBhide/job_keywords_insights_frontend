@@ -22,8 +22,6 @@ export default function CustomTabs(props) {
                 key={tab.tabName}
                 value={tab.tabName}
                 label={tab.tabLabel}
-                // icon={currentTab === tab.tabName ? tab.icon : undefined}
-                // iconPosition={currentTab === tab.tabName ? 'start' : undefined}
               />
             ))
           : null}

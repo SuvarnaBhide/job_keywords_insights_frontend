@@ -6,7 +6,7 @@ import {
   styled
 } from '@mui/material';
 import { validateForm } from '../../../app/utils/formValidator';
-import DialogActionButtons from './DialogActionButtons';
+import DialogActionButtons from '../components/common/Dialogs/DialogActionButtons';
 import useDataStorageOperations from '../../../app/hooks/useDataStorageOperations';
 
 const CustomTextField = styled(TextField)(() => ({

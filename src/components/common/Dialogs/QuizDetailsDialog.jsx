@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 const QuizDetailsRow = ({ label, value }) => {
   return (
     <Stack flexDirection="row" className="detailsdialog__row">
-      <div className="detailsdialog__row__key text-[15px]">
+      <div className="detailsdialog__row__key">
         {label}
       </div>
-      <div variant="body1" className="detailsdialog__row__value text-[15px]">
+      <div className="detailsdialog__row__value">
         {value}
       </div>
     </Stack>
@@ -32,7 +32,7 @@ const QuizDetailsDialog = ({ quizDetails, loading }) => {
 
   return (
     <div className="detailsdialog">
-      <div className="detailsdialog__title text-[20px] rounded-lg">
+      <div className="detailsdialog__title">
         Quiz Details
       </div>
       {loading ? (
@@ -43,12 +43,6 @@ const QuizDetailsDialog = ({ quizDetails, loading }) => {
         <Stack flexDirection="column" className="detailsdialog__content">
           <QuizDetailsRow label="Quiz Name" value={quizDetails.name} />
           <QuizDetailsRow label="Description" value={quizDetails.description} />
-          {/* <QuizDetailsRow label="Total Questions" value={quizDetails.totalQuestions} />
-          <QuizDetailsRow label="Total Time" value={quizDetails.totalTime} />
-          <QuizDetailsRow
-            label="Max Score"
-            value={quizDetails.maxScore}
-          /> */}
           <div className='flex justify-center items-center mt-5'>
             <button
               onClick={handleButtonClick}

@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { ReactComponent as ReactLogo } from '../../../assets/react.svg';
 
 export const allKeywordsColumnData = [
     {
@@ -8,7 +7,6 @@ export const allKeywordsColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
-                        {/* <ReactLogo width={30} height={30} className="mr-5" style={{ borderRadius: '6px' }} /> */}
                         <div className="text-[14px] font-semibold">
                             <p>{value}</p>
                         </div>
