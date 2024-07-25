@@ -2,7 +2,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-// import '../styles/Quiz.css';
 import CustomTabs from '../components/common/Tabs/CustomTabs';
 
 const Quiz = () => {
@@ -14,7 +13,7 @@ const Quiz = () => {
 
   return (
     <>
-      <Box className="w-full px-7">
+      <Box className="w-full px-7 flex flex-col">
         <CustomTabs tabs={tabs} />
         <Box className="w-full h-[calc(100%-70px)]">
           <Outlet />

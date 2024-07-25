@@ -2,12 +2,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import '../styles/TrendingJobKeywords.css';
 
 const DataStorage = () => {
   return (
     <>
-      <Box className="chatbot__component">
+      <Box className="w-full px-7">
         <Outlet />
       </Box>
     </>

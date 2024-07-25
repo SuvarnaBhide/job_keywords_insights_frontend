@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Box, Stack } from '@mui/material';
-import '../styles/Pages.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/Dialog.css';
 
@@ -42,7 +41,7 @@ const UserDetailsDialog = ({ userDetails, loading }) => {
 const Settings = () => {
     return (
         <>
-          <Box className="page-container-styles flex justify-center items-center bg-[#dcdfe2]">
+          <Box className="w-full px-7 flex justify-center items-center bg-[#dcdfe2]">
             <div className="bg-white p-10 rounded-md shadow">
                 <UserDetailsDialog />
             </div>
