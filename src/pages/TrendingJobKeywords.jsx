@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import '../styles/TrendingJobKeywords.css';
+import '../styles/Pages.css';
 
 const TrendingJobKeywords = () => {
   return (
     <>
-      <Box className="chatbot__component">
+      <Box className="page-container-styles">
         <Outlet />
       </Box>
     </>
