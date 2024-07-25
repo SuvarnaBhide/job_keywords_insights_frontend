@@ -1,3 +1,5 @@
+/* Custom hook for managing and syncrhonizing keywords-related data with Redux store*/
+
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +20,7 @@ const useKeywordsDetails = () => {
   const [keywordDetailsArray, setKeywordDetailsArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // fetch a particular keyword's details
   const getKeywordDetails = useCallback((keyword) => {
     setLoading(true);
     const payload = {
@@ -31,6 +34,7 @@ const useKeywordsDetails = () => {
       .catch(() => setLoading(false));
   }, [dispatch]);
 
+  // fetch all keywords and their respective counts
   const getAllKeywordsOccurrences = useCallback(() => {
     setLoading(true);
   
@@ -43,6 +47,8 @@ const useKeywordsDetails = () => {
   }, [dispatch]);
   
   useEffect(() => {
+    // if keywordCounts is empty, fetch all keywords
+    // else map keywordCounts to keywordCountsArray
     if (!keywordCounts || keywordCounts.length === 0) {
       getAllKeywordsOccurrences();
     } else {
@@ -50,8 +56,10 @@ const useKeywordsDetails = () => {
       setKeywordCountsArray(data);
     }
   }, [keywordCounts, getAllKeywordsOccurrences]);
-
+  
   useEffect(() => {
+    // if keywordDetails is empty, fetch keyword details
+    // else map keywordDetails to keywordDetailsArray
     if (keyword && (!keywordDetails || keywordDetails.length === 0)) {
       getKeywordDetails(keyword);
     } else {

@@ -1,3 +1,5 @@
+/* Custom hook for managing and syncrhonizing quiz-related data with Redux store*/
+
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +17,7 @@ const useQuizDetails = () => {
   const [quizzesArray, setQuizzesArray] = useState([]);
   const [attemptsArray, setAttemptsArray] = useState([]);
 
+  //fetch quizzes
   const getQuizzes = useCallback(() => {
     setLoading(true);
     dispatch(getQuizzesAction())
@@ -23,8 +26,8 @@ const useQuizDetails = () => {
       .catch(() => setLoading(false));
   }, [dispatch]);
 
+  //fetch questions
   const getQuestions = useCallback((payload) => {
-    //console.log('Fetching questions with payload:', payload);
     setLoading(true);
     dispatch(getQuestionsAction(payload))
       .unwrap()
@@ -32,8 +35,8 @@ const useQuizDetails = () => {
       .catch(() => setLoading(false));
   }, [dispatch]);
 
+  //fetch attempts
   const getAttempts = useCallback(() => {
-    //console.log('Fetching attempts with payload:', payload);
     setLoading(true);
     dispatch(getAttemptsAction())
       .unwrap()
@@ -41,6 +44,7 @@ const useQuizDetails = () => {
       .catch(() => setLoading(false));
   }, [dispatch]);
 
+  //save quiz attempt
   const saveAttempt = (payload) => {
     setLoading(true);
     dispatch(saveAttemptAction(payload))
@@ -51,6 +55,8 @@ const useQuizDetails = () => {
   };
 
   useEffect(() => {
+    // if quiz data is not yet fetched, fetch it
+    // else map quizzes to quizzesArray
     if (!hasFetchedQuizzes) {
       getQuizzes();
     } else {
@@ -58,22 +64,6 @@ const useQuizDetails = () => {
       setQuizzesArray(data);
     }
   }, [hasFetchedQuizzes, getQuizzes, quizzes]);
-
-  // useEffect(() => {
-  //   console.log('quizID inside questions waala useEffect:', quizID);
-  //   console.log('hasFetchedQuestions inside questions waala useEffect:', hasFetchedQuestions);
-  //   if (quizID && !hasFetchedQuestions) {
-  //     console.log('Fetching questions for quizID:', quizID);
-  //     getQuestions({ quiz_id: quizID });
-  //   }
-  // }, [quizID, hasFetchedQuestions, getQuestions]);
-
-  // useEffect(() => {
-  //   if (quizID && !hasFetchedAttempts) {
-  //     console.log('Fetching attempts for quizID:', quizID);
-  //     getAttempts({ quiz_id: quizID });
-  //   }
-  // }, [quizID, hasFetchedAttempts, getAttempts]);
 
   return {
     loading, saveAttempt, getAttempts, getQuestions, quizzesArray, attemptsArray, setAttemptsArray

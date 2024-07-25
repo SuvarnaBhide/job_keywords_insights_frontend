@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   addDataAction
-} from '../services/dataService';
+} from '../app/services/dataService';
 
 const useDataStorageOperations = () => {
   const dispatch = useDispatch();
