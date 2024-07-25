@@ -34,9 +34,9 @@ const AppRoutes = () => (
       {/* Quiz routes */}
       <Route path="quiz" element={<Quiz />}>
 
-        <Route index element={<Navigate to="quizzes" />} />
+        <Route index element={<Navigate to="quizdetails" />} />
  
-        <Route path="quizzes" element={<QuizDetails/>} />
+        <Route path="quizdetails" element={<QuizDetails/>} />
         <Route path=":quiz/quizzz" element={<Quizzz/>} />
 
         <Route path="attempts" element={<Attempts />} />
@@ -48,7 +48,7 @@ const AppRoutes = () => (
       <Route path="settings" element={<Settings />} />
       
       {/* Fallback route for unmatched paths */}
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Route>
   </Routes>
 );

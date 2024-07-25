@@ -8,7 +8,7 @@ import CustomTabs from '../components/common/Tabs/CustomTabs';
 const Quiz = () => {
 
   const tabs = [
-    { tabName: 'Quizzes', tabLabel: 'Available Quizzes' },
+    { tabName: 'QuizDetails', tabLabel: 'Available Quizzes' },
     { tabName: 'Attempts', tabLabel: 'Past Attempts' },
   ];
 

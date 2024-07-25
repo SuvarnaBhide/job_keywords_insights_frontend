@@ -16,8 +16,8 @@ export const useTabs = () => {
 
   useEffect(() => {
     const path = location.pathname.toLowerCase();
-    if (path.includes('quizzes') || path.includes('quizdetails') || path.includes('quizzz')) {
-      setCurrentTab('Quizzes');
+    if (path.includes('quizdetails') || path.includes('quizzz')) {
+      setCurrentTab('QuizDetails');
     } else if (path.includes('attempts') || path.includes('attemptdetails')) {
       setCurrentTab('Attempts');
     }
