@@ -27,7 +27,7 @@ const QuizDetailsDialog = ({ quizDetails, loading }) => {
     const handleButtonClick = () => {
         dispatch(setQuizID(quizDetails.id));
     
-        navigate(`/quiz/${quizDetails.name}/quizzz`);
+        navigate(`/quiz/${quizDetails.name}/quizlive`);
     };
 
   return (

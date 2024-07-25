@@ -27,10 +27,6 @@ const QuizDetails = () => {
 
   const handleCellClick = (quizName) => {
     const quiz = quizzes.find(quiz => quiz.name === quizName);
-
-    // dispatch(setQuizID(quiz.id));
-
-    // navigate(`/quiz/${quizName}/quizzz`);
     setCurrentQuiz(quiz);
     setOpenDialog(true);
   };

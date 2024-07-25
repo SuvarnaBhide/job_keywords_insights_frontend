@@ -15,7 +15,7 @@ const shuffleArray = (array) => {
     .map(({ value }) => value);
 };
 
-const Quizzz = () => {
+const QuizLive = () => {
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]); // Track selected options
@@ -171,4 +171,4 @@ const Quizzz = () => {
   );
 };
 
-export default Quizzz;
+export default QuizLive;
