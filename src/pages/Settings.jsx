@@ -1,19 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
-import '../styles/TrendingJobKeywords.css';
-import CustomDialog from '../components/common/Dialogs/CustomDialog';
+import '../styles/Pages.css';
 import CircularProgress from '@mui/material/CircularProgress';
-import '../styles/QuizDetailsDialog.css';
+import '../styles/Dialog.css';
 
 const UserDetailsRow = ({ label, value }) => {
     return (
       <Stack flexDirection="row" className="detailsdialog__row">
-        <div className="detailsdialog__row__key text-[15px]">
+        <div className="detailsdialog__row__key">
           {label}
         </div>
-        <div variant="body1" className="detailsdialog__row__value text-[15px]">
+        <div className="detailsdialog__row__value">
           {value}
         </div>
       </Stack>
@@ -24,7 +22,7 @@ const UserDetailsDialog = ({ userDetails, loading }) => {
 
   return (
     <div className="detailsdialog">
-      <div className="detailsdialog__title text-[20px] rounded-lg">
+      <div className="detailsdialog__title">
         User Details
       </div>
       {loading ? (
@@ -44,7 +42,7 @@ const UserDetailsDialog = ({ userDetails, loading }) => {
 const Settings = () => {
     return (
         <>
-          <Box className="chatbot__component flex justify-center items-center bg-[#dcdfe2]">
+          <Box className="page-container-styles flex justify-center items-center bg-[#dcdfe2]">
             <div className="bg-white p-10 rounded-md shadow">
                 <UserDetailsDialog />
             </div>
