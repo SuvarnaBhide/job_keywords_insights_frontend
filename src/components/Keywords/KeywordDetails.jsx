@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import MUIDataTable from "mui-datatables";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import '../../styles/index.css';
 import getMuiDataTableTheme from '../../theme/MuiDataTable/dataTableTheme';
 import { dataTableOptions } from '../../theme/MuiDataTable/dataTableOptions';
-import { keywordRowData } from '../common/MuiDataTable/dataTableRowData';
 import { keywordColumnData } from '../common/MuiDataTable/dataTableColumnData';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getData } from '../../app/axios/axios';
+import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import useKeywordsDetails from '../../app/hooks/useKeywordsDetails';
 
@@ -18,6 +16,7 @@ const KeywordDetails = () => {
     const { keyword, keywordDetailCount } = useSelector((state) => state.keywords);
     const navigate = useNavigate();
     const { keywordDetailsArray, loading } = useKeywordsDetails();
+    
     const columnsWithClickHandling = keywordColumnData.map((column) => ({
         ...column,
         options: {

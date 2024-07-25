@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from "mui-datatables";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../../styles/index.css';
 import getMuiDataTableTheme from '../../theme/MuiDataTable/dataTableTheme';
 import { dataTableOptions } from '../../theme/MuiDataTable/dataTableOptions';
-import { allKeywordsRowData } from '../common/MuiDataTable/dataTableRowData';
 import { allKeywordsColumnData } from '../common/MuiDataTable/dataTableColumnData';
 import { useNavigate } from 'react-router-dom';
-import { getData } from '../../app/axios/axios';
 import { CircularProgress } from '@mui/material';
 import { setKeyword } from '../../app/redux/slices/keywordsSlice';
 import useKeywordsDetails from '../../app/hooks/useKeywordsDetails'; 
