@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material';
 import MuiOverrides from './muiOverrides/';
 import GlobalStyles from './globalStyles';
+import palette from './palette';
 
 ThemeSettings.propTypes = {
   children: PropTypes.node
@@ -12,7 +13,7 @@ export default function ThemeSettings({ children }) {
   const themeOptions = {
     typography: '',
     spacing: '',
-    palette: ''
+    palette: palette('light')
   };
 
   let theme = createTheme(themeOptions);
