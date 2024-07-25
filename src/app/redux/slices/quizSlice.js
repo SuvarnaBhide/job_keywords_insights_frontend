@@ -1,3 +1,5 @@
+/* Defines a Redux slice for managing quiz-related state */
+
 import { createSlice } from '@reduxjs/toolkit';
 import {
     getQuizzesAction,
@@ -28,7 +30,6 @@ const quizSlice = createSlice({
     setQuizID: (state, action) => {
       state.quizID = action.payload;
       state.hasFetchedQuestions = false; // Reset questions flag
-      //state.hasFetchedAttempts = false; // Reset attempts flag
     },
     setQuizScore: (state, action) => {
       state.quizScore = action.payload;

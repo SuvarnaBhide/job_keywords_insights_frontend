@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
     addDataAction,
     getAllDataAction
-} from '../../services/dataService';
+} from '../app/services/dataService';
 
 const initialState = {
   dataCount: 0,
