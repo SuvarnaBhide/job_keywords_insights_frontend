@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setQuizID } from '../../app/redux/slices/quizSlice';
+import { setQuizID } from '../app/redux/slices/quizSlice';
 import { ReactComponent as CodeIcon } from '../../assets/code_icon.svg';
 
 const QuizCard = ({ quiz }) => {

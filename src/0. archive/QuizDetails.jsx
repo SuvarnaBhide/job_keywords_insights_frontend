@@ -2,8 +2,7 @@
 import React , { useEffect } from 'react';
 import '../../styles/index.css';
 import '../../styles/QuizType.css';
-import AttemptInfo from './AttemptInfo';
-import useQuizDetails from '../../app/hooks/useQuizDetails';
+import useQuizDetails from '../app/hooks/useQuizDetails';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';

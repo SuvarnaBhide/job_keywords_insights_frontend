@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
-import QuizCard from './QuizCard';
 import { CircularProgress } from '@mui/material';
 import { setQuizID } from '../../app/redux/slices/quizSlice';
 import { ThemeProvider } from '@emotion/react';
