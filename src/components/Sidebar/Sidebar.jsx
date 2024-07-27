@@ -12,7 +12,6 @@ import paymentsLogo from '../../assets/payments.png';
 import { Tooltip, useTheme } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { setQuizID, setQuizScore } from "../../app/redux/slices/quizSlice";
-import { setHasFetchedAttempts, setHasFetchedQuestions } from "../../app/redux/slices/quizSlice";
 
 const Sidebar = () => {
 
@@ -49,6 +48,7 @@ const Sidebar = () => {
     <React.Fragment>
       <div
         className={`${open ? "w-72" : "w-20 "} bg-[${theme.palette.sidebar.background}] h-screen relative top-0 left-0 pt-8 duration-300`}
+        style={{ backgroundColor: theme.palette.sidebar.background }}
       >
         <img
           height="25px" width="25px"
@@ -63,8 +63,13 @@ const Sidebar = () => {
               <Link to={Menu.link} className='no-underline' onClick={() => resetData(Menu.link)}>
                 <Tooltip title={Menu.title} placement="right">
                   <li
-                    className={`flex px-5 py-3 cursor-pointer hover:bg-[${theme.palette.sidebar.hover}] text-[${theme.palette.sidebar.text}] text-sm font-semibold items-center gap-x-4 
+                    className={`flex px-5 py-3 cursor-pointer hover:bg-[#335E68] text-[${theme.palette.sidebar.text}] text-sm font-semibold items-center gap-x-4 
                       ${Menu.gap ? "mt-2" : "mt-2"}  ${location.pathname.includes(Menu.link) && `bg-[${theme.palette.sidebar.selectedMenu}]`} `}
+                    style={{ 
+                      backgroundColor: location.pathname.includes(Menu.link) && theme.palette.sidebar.selectedMenu,
+                      color: theme.palette.sidebar.text,
+                      hover: { backgroundColor: theme.palette.sidebar.hover }
+                    }}
                   >
                     <img 
                       src={Menu.src} 
