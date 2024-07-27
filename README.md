@@ -241,6 +241,51 @@ Contains the source code for the React application.
 
     Defines the application's theme and style configurations.
 
+    - <details>
+        <summary><code>MuiDataTable/</code></summary>
+
+        theme and other configurations for `MUIDataTable` component.
+        
+        - <details>
+            <summary><code>dataTableOptions.js</summary></code>
+
+            Sets the options for `MUIDataTable`
+          </details>
+        - <details>
+            <summary><code>dataTableTheme.jsx</summary></code>
+
+            Sets the theme for `MUIDataTable`
+          </details>
+      </details>
+    - <details>
+        <summary><code>muiOverrides/</code></summary>
+
+        Contains style overrides for different MUI components
+
+        eg: `dialog.js` contains style overrides for `Dialog` MUI Component.
+
+        - <details>
+            <summary><code>index.js</code></summary>
+
+            This is the main file inside this directory that combines the theme overrides for the different MUI components, into one single object. This combined object can then be used to customize the Material-UI theme in your application.
+          </details>
+      </details>
+    - <details>
+        <summary><code>globalStyles.js</code></summary>
+
+        The GlobalStyles function component is used to apply global CSS styles to your application using Material-UI's GlobalStyles component.
+      </details>
+    - <details>
+        <summary><code>palette.js</code></summary>
+
+        Defines the color palette to be used across the application.
+      </details>
+    - <details>
+        <summary><code>Theme.js</code></summary>
+
+        This code file configures and provides a Material-UI theme for your application, and it incorporates both global styles and theme overrides.
+      </details>
+
   </details>
 
 - <details>
