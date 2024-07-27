@@ -1,13 +1,8 @@
 /* eslint-disable no-unused-vars */
 
-const theme = {
-    palette: {
-        muiDataTable: {
-            lightGreen: '#C9F7F5',
-            darkGreen: '#1BC5BD'
-        }
-    }
-}
+import { default as PALETTE } from "../../../theme/palette";
+
+const palette = PALETTE('light');
 
 export const allKeywordsColumnData = [
     {
@@ -30,7 +25,13 @@ export const allKeywordsColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
+                        <p 
+                            className={`capitalize text-black px-3 py-1 inline-block rounded-[6px] text-[${palette.muiDataTable.darkGreen}]`}
+                            style={{ 
+                                backgroundColor: `${palette.muiDataTable.lightGreen}`,
+                                color: `${palette.muiDataTable.darkGreen}`
+                            }}
+                        >
                             <strong>{value}</strong> Occurrences
                         </p>
                     </div>
@@ -52,7 +53,9 @@ export const keywordColumnData = [
         options: {
             customBodyRender: (value) => {
                 return (
-                    <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
+                    <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${palette.muiDataTable.lightGreen}] text-[${palette.muiDataTable.darkGreen}]`}
+                        style={{ backgroundColor: `${palette.muiDataTable.lightGreen}`, color: `${palette.muiDataTable.darkGreen}` }}
+                    >
                         {value}
                     </p>
                 )
@@ -82,7 +85,9 @@ export const allQuizzesColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
+                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${palette.muiDataTable.lightGreen}] text-[${palette.muiDataTable.darkGreen}]`}
+                            style={{ backgroundColor: `${palette.muiDataTable.lightGreen}`, color: `${palette.muiDataTable.darkGreen}` }}
+                        >
                             <strong>{value}</strong>
                         </p>
                     </div>
@@ -130,7 +135,9 @@ export const allAttemptsColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
+                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${palette.muiDataTable.lightGreen}] text-[${palette.muiDataTable.darkGreen}]`}
+                            style={{ backgroundColor: `${palette.muiDataTable.lightGreen}`, color: `${palette.muiDataTable.darkGreen}` }}
+                        >
                             <strong>{value}</strong>
                         </p>
                     </div>
