@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import '../../../styles/Dialog.css';
-import { CircularProgress, Stack, Typography } from '@mui/material';
+import { CircularProgress, Stack, Typography, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +19,8 @@ const AttemptDetailsRow = ({ label, value }) => {
 };
 
 const AttemptDetailsDialog = ({ attemptDetails, loading, attemptIndex }) => {
+
+  const theme = useTheme();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,7 +45,7 @@ const AttemptDetailsDialog = ({ attemptDetails, loading, attemptIndex }) => {
           <div className='flex justify-center items-center mt-5'>
             <button
               onClick={handleButtonClick}
-              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-fit`}
+              className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 px-4 rounded text-sm w-fit`}
             >
               View Score Details
             </button>

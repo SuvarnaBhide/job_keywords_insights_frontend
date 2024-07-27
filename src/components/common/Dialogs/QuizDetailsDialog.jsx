@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import '../../../styles/Dialog.css';
-import { CircularProgress, Stack, Typography } from '@mui/material';
+import { CircularProgress, Stack, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuizID } from '../../../app/redux/slices/quizSlice';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,7 @@ const QuizDetailsDialog = ({ quizDetails, loading }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const theme = useTheme();
 
     const handleButtonClick = () => {
         dispatch(setQuizID(quizDetails.id));
@@ -46,7 +47,7 @@ const QuizDetailsDialog = ({ quizDetails, loading }) => {
           <div className='flex justify-center items-center mt-5'>
             <button
               onClick={handleButtonClick}
-              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 rounded text-sm w-24`}
+              className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 rounded text-sm w-24`}
             >
               Take Quiz
             </button>
