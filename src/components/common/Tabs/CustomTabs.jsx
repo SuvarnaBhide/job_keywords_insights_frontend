@@ -15,7 +15,7 @@ export default function CustomTabs(props) {
   };
 
   return (
-    <Box className={`w-full pt-5 border-b border-[${theme.palette.border.greyPrimary}]`}>
+    <Box className={`w-full pt-5 border-b`} style={{ borderColor: theme.palette.border.greyPrimary }}>
       <Tabs value={currentTab} onChange={handleTabChange} aria-label="navigation tabs">
         {tabs?.length
           ? tabs.map((tab, index) => (
