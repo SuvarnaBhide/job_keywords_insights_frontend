@@ -121,7 +121,7 @@ const QuizLive = () => {
           style={{ backgroundColor: theme.palette.quiz.background }}
         >
           <h1>Quiz App</h1>
-          <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} />
+          <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} style={{ backgroundColor: theme.palette.quiz.borderDark }}/>
           <h2 className="text-lg font-medium">
             Your score is: {score} out of {shuffledQuestions.length}
           </h2>
@@ -140,9 +140,9 @@ const QuizLive = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-full">
-      <div className={`bg-[${theme.palette.quiz.background}] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll`}>
+      <div className={`bg-[${theme.palette.quiz.background}] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll`} style={{ backgroundColor: theme.palette.quiz.background }}>
         <h1>Quiz App</h1>
-        <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} />
+        <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} style={{ backgroundColor: theme.palette.quiz.borderDark }} />
         {/* Display the questions */}
         {shuffledQuestions.map((question, questionIndex) => (
           <div key={question.id} className="mb-10">
