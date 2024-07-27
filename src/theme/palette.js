@@ -16,7 +16,6 @@ const palette = (mode) => {
         background: '#F0FCFF',
         borderDark: '#707070',
         borderLight: '#686868'
-
       },
       sidebar: {
         background: '#1A4751',

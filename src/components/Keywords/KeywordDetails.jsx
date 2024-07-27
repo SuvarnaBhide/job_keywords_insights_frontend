@@ -10,11 +10,13 @@ import { keywordColumnData } from '../common/MuiDataTable/dataTableColumnData';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import useKeywordsDetails from '../../app/hooks/useKeywordsDetails';
+import { useTheme } from '@mui/material';
 
 const KeywordDetails = () => {
 
     const { keyword, keywordDetailCount } = useSelector((state) => state.keywords);
     const navigate = useNavigate();
+    const theme = useTheme();
     const { keywordDetailsArray, loading } = useKeywordsDetails();
     
     const columnsWithClickHandling = keywordColumnData.map((column) => ({
@@ -49,7 +51,7 @@ const KeywordDetails = () => {
                         <p className="text-[18px] font-medium mb-2">Full Stack Developer Job Profiles for <strong>{keyword}</strong></p>
                         <p className="text-sm text-gray-600"><strong>{keywordDetailCount} </strong>Results Found</p>
                     </div>
-                    <button disabled={true} className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-[12px] ${true ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1890D4]'}`}>
+                    <button disabled={true} className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 px-4 rounded text-[12px] opacity-50 cursor-not-allowed`}>
                         Change Keyword
                     </button>
                 </div>

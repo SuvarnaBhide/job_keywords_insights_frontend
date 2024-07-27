@@ -9,12 +9,14 @@ import quizLogo from '../../assets/quiz.png';
 import keywordsLogo from '../../assets/keywords.png';
 import drawerLogo from '../../assets/drawer.png';
 import paymentsLogo from '../../assets/payments.png';
-import { Tooltip } from "@mui/material";
+import { Tooltip, useTheme } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { setQuizID, setQuizScore } from "../../app/redux/slices/quizSlice";
 import { setHasFetchedAttempts, setHasFetchedQuestions } from "../../app/redux/slices/quizSlice";
 
 const Sidebar = () => {
+
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const Sidebar = () => {
   return (
     <React.Fragment>
       <div
-        className={`${open ? "w-72" : "w-20 "} bg-[#1A4751] h-screen relative top-0 left-0 pt-8 duration-300`}
+        className={`${open ? "w-72" : "w-20 "} bg-[${theme.palette.sidebar.background}] h-screen relative top-0 left-0 pt-8 duration-300`}
       >
         <img
           height="25px" width="25px"
@@ -61,8 +63,8 @@ const Sidebar = () => {
               <Link to={Menu.link} className='no-underline' onClick={() => resetData(Menu.link)}>
                 <Tooltip title={Menu.title} placement="right">
                   <li
-                    className={`flex px-5 py-3 cursor-pointer hover:bg-[#335E68] text-[#E6E6E6] text-sm font-semibold items-center gap-x-4 
-                      ${Menu.gap ? "mt-2" : "mt-2"}  ${location.pathname.includes(Menu.link) && "bg-[#51808B]"} `}
+                    className={`flex px-5 py-3 cursor-pointer hover:bg-[${theme.palette.sidebar.hover}] text-[${theme.palette.sidebar.text}] text-sm font-semibold items-center gap-x-4 
+                      ${Menu.gap ? "mt-2" : "mt-2"}  ${location.pathname.includes(Menu.link) && `bg-[${theme.palette.sidebar.selectedMenu}]`} `}
                   >
                     <img 
                       src={Menu.src} 
@@ -76,7 +78,7 @@ const Sidebar = () => {
                   </li>
                 </Tooltip>
               </Link>
-              {Menu.gap && <hr className="border-t-2 border-[#335E68] my-8 mx-2" />}
+              {Menu.gap && <hr className={`border-t-2 border-[${theme.palette.sidebar.hover}] my-8 mx-2`} />}
             </React.Fragment>
           ))}
         </ul>

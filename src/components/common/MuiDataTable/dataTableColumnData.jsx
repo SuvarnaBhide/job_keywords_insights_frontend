@@ -1,5 +1,14 @@
 /* eslint-disable no-unused-vars */
 
+const theme = {
+    palette: {
+        muiDataTable: {
+            lightGreen: '#C9F7F5',
+            darkGreen: '#1BC5BD'
+        }
+    }
+}
+
 export const allKeywordsColumnData = [
     {
         name: "Keyword",
@@ -21,7 +30,7 @@ export const allKeywordsColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
                             <strong>{value}</strong> Occurrences
                         </p>
                     </div>
@@ -43,7 +52,7 @@ export const keywordColumnData = [
         options: {
             customBodyRender: (value) => {
                 return (
-                    <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                    <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
                         {value}
                     </p>
                 )
@@ -73,7 +82,7 @@ export const allQuizzesColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
                             <strong>{value}</strong>
                         </p>
                     </div>
@@ -121,7 +130,7 @@ export const allAttemptsColumnData = [
             customBodyRender: (value) => {
                 return (
                     <div>
-                        <p className="capitalize px-3 py-1 inline-block rounded-[6px] bg-[#C9F7F5] text-[#1BC5BD]">
+                        <p className={`capitalize px-3 py-1 inline-block rounded-[6px] bg-[${theme.palette.muiDataTable.lightGreen}] text-[${theme.palette.muiDataTable.darkGreen}]`}>
                             <strong>{value}</strong>
                         </p>
                     </div>

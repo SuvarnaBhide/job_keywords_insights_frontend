@@ -3,17 +3,19 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTabs } from '../../../app/hooks/useTab';
+import { useTheme } from '@mui/material';
 
 export default function CustomTabs(props) {
   const { tabs } = props;
   const { currentTab, handleSetCurrentTab } = useTabs();
+  const theme = useTheme();
 
   const handleTabChange = (event, newTab) => {
     handleSetCurrentTab(newTab);
   };
 
   return (
-    <Box className="w-full pt-5 border-b border-[#e8f1f2]">
+    <Box className={`w-full pt-5 border-b border-[${theme.palette.border.greyPrimary}]`}>
       <Tabs value={currentTab} onChange={handleTabChange} aria-label="navigation tabs">
         {tabs?.length
           ? tabs.map((tab, index) => (

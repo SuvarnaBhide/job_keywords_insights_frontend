@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/index.css';
 import '../../styles/QuizLive.css';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, useTheme } from '@mui/material';
 import { setHasFetchedAttempts } from '../../app/redux/slices/quizSlice';
 
 // Utility function to shuffle array
@@ -26,6 +26,7 @@ const QuizLive = () => {
   const { loading, saveAttempt, getQuestions } = useQuizDetails();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   useEffect(() => {
     // Fetch questions for the current quiz
@@ -115,16 +116,19 @@ const QuizLive = () => {
   if (result) {
     return (
       <div className="flex justify-center items-center w-full">
-        <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]">
+        <div 
+          className={`text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px]`} 
+          style={{ backgroundColor: theme.palette.quiz.background }}
+        >
           <h1>Quiz App</h1>
-          <hr className="border-0 h-0.5 bg-[#707070]" />
+          <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} />
           <h2 className="text-lg font-medium">
             Your score is: {score} out of {shuffledQuestions.length}
           </h2>
           <div className="flex justify-center mt-4">
             <button
               onClick={() => navigate('/quiz/attempts')}
-              className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-sm w-60`}
+              className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 px-4 rounded text-sm w-60`}
             >
               View Previous Attempts
             </button>
@@ -136,9 +140,9 @@ const QuizLive = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-full">
-      <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll">
+      <div className={`bg-[${theme.palette.quiz.background}] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll`}>
         <h1>Quiz App</h1>
-        <hr className="border-0 h-0.5 bg-[#707070]" />
+        <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} />
         {/* Display the questions */}
         {shuffledQuestions.map((question, questionIndex) => (
           <div key={question.id} className="mb-10">
@@ -148,7 +152,7 @@ const QuizLive = () => {
             <ul>
               {/* Display the options */}
               {question.options.map((option, optionIndex) => {
-                let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
+                let className = `flex items-center h-12 px-4 border border-[${theme.palette.quiz.borderLight}] rounded-lg mb-5 text-sm cursor-pointer`;
                 const selectedOption = selectedOptions.find(option => option.question_id === question.id);
                 
                 {/* Highlight the selected option */}
@@ -177,7 +181,7 @@ const QuizLive = () => {
         <div className="flex justify-center mt-4">
           <button
             onClick={() => submitQuiz()}
-            className={`bg-[#1890D4] hover:bg-[#10608e] text-white font-semibold py-2 px-4 rounded text-[12px] ${!allQuestionsAnswered ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#10608e]'}`}
+            className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 px-4 rounded text-[12px] ${!allQuestionsAnswered ? 'opacity-50 cursor-not-allowed' : `hover:bg-[${theme.palette.button.hover}]`}`}
             disabled={!allQuestionsAnswered} // Disable button if not all questions are answered
           >
             Submit

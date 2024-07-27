@@ -10,12 +10,14 @@ import { allKeywordsColumnData } from '../common/MuiDataTable/dataTableColumnDat
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { setKeyword } from '../../app/redux/slices/keywordsSlice';
-import useKeywordsDetails from '../../app/hooks/useKeywordsDetails'; 
+import useKeywordsDetails from '../../app/hooks/useKeywordsDetails';
+import { useTheme } from '@mui/material';
 
 
 const AllKeywordsOccurrences = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const theme = useTheme();
     const { keywordCountsArray, loading } = useKeywordsDetails();
     const { keywordCount } = useSelector((state) => state.keywords);
 
@@ -52,7 +54,7 @@ const AllKeywordsOccurrences = () => {
                             <p className="text-[18px] font-medium mb-2">Keywords for <strong>Full Stack Developer</strong></p>
                             <p className="text-sm text-gray-600"><strong>{keywordCount} </strong>Keywords Found</p>
                         </div>
-                        <button disabled={true} className={`bg-[#1890D4] hover:bg-[#1890D4] text-white font-semibold py-2 px-4 rounded text-[12px] ${true ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1890D4]'}`}>
+                        <button disabled={true} className={`bg-[${theme.palette.button.primary}] hover:bg-[${theme.palette.button.hover}] text-white font-semibold py-2 px-4 rounded text-[12px] opacity-50 cursor-not-allowed`}>
                             Change Job Profile
                         </button>
                     </div>

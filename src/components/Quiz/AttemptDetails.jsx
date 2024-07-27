@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import '../../styles/index.css';
 import '../../styles/QuizLive.css';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, useTheme } from '@mui/material';
 import useQuizDetails from '../../app/hooks/useQuizDetails';
 import { setQuizScore } from '../../app/redux/slices/quizSlice';
 
 const AttemptDetails = () => {
+
+  const theme = useTheme
   const { questions, attempts, hasFetchedQuestions } = useSelector((state) => state.quiz);
   const { loading, getQuestions } = useQuizDetails();
 
@@ -48,7 +50,7 @@ const AttemptDetails = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-full">
-      <div className="bg-[#f0fcff] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll">
+      <div className={`bg-[${theme.palette.quiz.background}] text-black flex flex-col gap-5 rounded-xl p-10 w-[700px] max-w-[700px] h-[550px] overflow-y-scroll`}>
         <div className="flex justify-between items-center mb-5">
           <div className="flex items-center">
             <h1>Attempt Details</h1>
@@ -60,7 +62,7 @@ const AttemptDetails = () => {
             {questions.length} questions
           </h1>
         </div>
-        <hr className="border-0 h-0.5 bg-[#707070]" />
+        <hr className={`border-0 h-0.5 bg-[${theme.palette.quiz.borderDark}]`} />
         {/* Display questions and their options*/}
         {questions.map((question, questionIndex) => {
           
@@ -81,7 +83,7 @@ const AttemptDetails = () => {
                   const option = optionMap.get(parseInt(optionId));
                   if (!option) return null; // Skip if option not found
 
-                  let className = "flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer";
+                  let className = `flex items-center h-12 px-4 border border-[${theme.palette.quiz.borderLight}] rounded-lg mb-5 text-sm cursor-pointer`;
 
                   // Determine if the option is the selected one or correct/wrong
                   const isSelected = responseForCurrentQuestion && responseForCurrentQuestion.option_id === option.id;

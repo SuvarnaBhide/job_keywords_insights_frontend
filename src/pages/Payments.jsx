@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/Dialog.css';
 
@@ -40,9 +40,12 @@ const UserDetailsDialog = ({ loading }) => {
 };
 
 const Payments = () => {
+
+  const theme = useTheme();
+
   return (
     <>
-      <Box className="w-full px-7 flex justify-center items-center bg-[#dcdfe2] py-[28px]">
+      <Box className={`w-full px-7 flex justify-center items-center bg-[${theme.palette.grey.main}] py-[28px]`}>
         <div className="bg-white p-10 rounded-md shadow">
             <UserDetailsDialog />
         </div>

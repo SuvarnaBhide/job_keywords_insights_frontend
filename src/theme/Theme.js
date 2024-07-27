@@ -12,7 +12,7 @@ ThemeSettings.propTypes = {
 export default function ThemeSettings({ children }) {
   const themeOptions = {
     typography: '',
-    spacing: '',
+    spacing: (factor) => `${1 * factor}rem`,
     palette: palette('light')
   };
 
