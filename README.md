@@ -311,7 +311,7 @@ Defines the project’s dependencies, scripts, and metadata.
 <details>
 <summary><code>README.md</code></summary>
 
-Documentation file with information about the project, setup, and usage.
+Documentation file with information about the project.
 
 </details>
 
