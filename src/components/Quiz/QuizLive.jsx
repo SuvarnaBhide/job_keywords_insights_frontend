@@ -152,7 +152,7 @@ const QuizLive = () => {
             <ul>
               {/* Display the options */}
               {question.options.map((option, optionIndex) => {
-                let className = `flex items-center h-12 px-4 border border-[${theme.palette.quiz.borderLight}] rounded-lg mb-5 text-sm cursor-pointer`;
+                let className = `flex items-center h-12 px-4 border border-[#686868] rounded-lg mb-5 text-sm cursor-pointer`;
                 const selectedOption = selectedOptions.find(option => option.question_id === question.id);
                 
                 {/* Highlight the selected option */}
